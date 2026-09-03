@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Política de Privacidade · Muro</title>
+<style>
+  :root{
+    --ground:#101010;      /* mesmo fundo da landing e do app */
+    --ink:#eeeeee;
+    --muted:#9b9b9b;
+    --rule:rgba(238,238,238,.12);
+    --serif:Charter,"Bitstream Charter","Iowan Old Style",Georgia,serif;
+    --sans:"Helvetica Neue",Helvetica,Arial,sans-serif;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;background:var(--ground);color:var(--ink);
+    font-family:var(--sans);font-size:16px;line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:680px;margin:0 auto;padding:80px 24px 120px}
+  .mark{font-family:var(--serif);font-size:18px;letter-spacing:.02em;color:var(--ink);text-decoration:none}
+  h1{font-family:var(--serif);font-size:44px;line-height:1.1;font-weight:400;margin:56px 0 12px;letter-spacing:-.01em}
+  h1 em{font-style:italic}
+  .updated{color:var(--muted);font-size:14px;margin:0 0 8px}
+  .lede{font-family:var(--serif);font-size:20px;line-height:1.5;color:var(--ink);margin:24px 0 0}
+  h2{font-family:var(--serif);font-size:24px;font-weight:400;line-height:1.25;margin:56px 0 16px}
+  p{margin:0 0 16px;color:var(--ink)}
+  p.soft{color:var(--muted)}
+  ul{margin:0 0 16px;padding-left:20px}
+  li{margin:0 0 10px}
+  strong{font-weight:600}
+  hr{border:0;border-top:1px solid var(--rule);margin:64px 0}
+  a{color:var(--ink)}
+  footer{margin-top:72px;color:var(--muted);font-size:14px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <a class="mark" href="/">Muro</a>
+
+  <h1><em>Privacidade</em> no Muro</h1>
+  <p class="updated">Atualizada em 3 de setembro de 2026</p>
+
+  <p class="lede">O Muro é um app de leitura. Quase tudo que ele sabe sobre você
+  nunca sai do seu iPhone — e o que sai são números sobre o uso do app, nunca
+  sobre o que você lê ou escreve.</p>
+
+  <h2>Quem somos</h2>
+  <p>O Muro é operado por <strong>Henrique Lima Menezes das Neves</strong>,
+  responsável pelo tratamento dos dados descritos aqui (o “controlador”, nos
+  termos da LGPD — Lei nº 13.709/2018).</p>
+
+  <h2>O que fica só no seu aparelho</h2>
+  <p>Estes dados são gravados no armazenamento privado do app e <strong>nunca são
+  enviados para nós nem para terceiros</strong>:</p>
+  <ul>
+    <li>Os <strong>PDFs</strong> que você importa, e as capas geradas a partir deles.</li>
+    <li>Sua <strong>biblioteca</strong>: títulos, número de páginas, progresso de leitura.</li>
+    <li>Suas <strong>notas</strong>, coleções e histórico de revisão.</li>
+    <li>Sua <strong>ofensiva</strong> (streak), dias lidos, metas e tempo de leitura.</li>
+    <li>Sua configuração do <strong>Foco</strong>, incluindo quais apps você escolheu bloquear.</li>
+  </ul>
+  <p>Se você desinstalar o Muro, tudo isso é apagado com ele. Não temos cópia.</p>
+
+  <h2>O que é coletado</h2>
+  <p>Para entender se o app funciona e onde ele falha, coletamos eventos de uso
+  através do <strong>Mixpanel</strong>, que atua como operador em nosso nome:</p>
+  <ul>
+    <li>Um <strong>identificador de instalação</strong> gerado pelo próprio Muro (um número
+    aleatório). Não é o identificador do seu aparelho, não é o seu Apple ID, e não
+    permite chegar até você — mas identifica a instalação de forma persistente, e
+    por isso o tratamos como dado pessoal.</li>
+    <li><strong>Eventos de uso</strong>: abrir o app, importar um livro, iniciar e encerrar
+    uma sessão de leitura, cumprir a meta do dia, configurar ou pausar o Foco,
+    encontrar a tela de bloqueio, criar uma nota, revisar, compartilhar.</li>
+    <li><strong>Números</strong> ligados a esses eventos: quantas páginas, quantos segundos,
+    tamanho da ofensiva, quantas notas — e a versão do app.</li>
+  </ul>
+
+  <h2>O que nunca é coletado</h2>
+  <p>Isto não é uma promessa vaga; é como o app foi construído:</p>
+  <ul>
+    <li><strong>O texto das suas notas</strong> e o nome das suas coleções.</li>
+    <li><strong>Títulos, autores ou nomes de arquivo</strong> dos seus livros.</li>
+    <li><strong>Qualquer conteúdo das páginas</strong> que você lê.</li>
+    <li><strong>Quais aplicativos você bloqueia.</strong> O iOS entrega ao Muro apenas
+    referências opacas — nem nós conseguimos saber quais apps você escolheu.</li>
+    <li>Seu nome, e-mail, telefone, localização ou lista de contatos. O Muro não
+    tem cadastro nem login.</li>
+  </ul>
+
+  <h2>Foco e o Tempo de Uso da Apple</h2>
+  <p>O bloqueio de aplicativos usa o Screen Time da Apple e só funciona depois que
+  você autoriza, com biometria, no seu próprio aparelho. Essa autorização é sua e
+  pode ser revogada a qualquer momento nos Ajustes do iOS. O Muro não gerencia
+  aparelhos de outras pessoas e não é um controle parental.</p>
+
+  <h2>Por que tratamos esses dados</h2>
+  <p>Com base no <strong>legítimo interesse</strong> (art. 7º, IX da LGPD): entender como o
+  app é usado para corrigir defeitos e melhorá-lo. Não usamos esses dados para
+  publicidade, não fazemos rastreamento entre aplicativos, não vendemos nem
+  compartilhamos com corretores de dados, e não tomamos decisões automatizadas
+  sobre você.</p>
+
+  <h2>Com quem compartilhamos</h2>
+  <p>Apenas com o <strong>Mixpanel</strong>, que processa os eventos por nossa conta e sob
+  nossas instruções. Os dados podem ser armazenados fora do Brasil. Nenhum outro
+  terceiro recebe dados do Muro.</p>
+
+  <h2>Por quanto tempo guardamos</h2>
+  <p>Os eventos de uso ficam retidos por até 24 meses e depois são descartados.
+  Os dados no seu aparelho ficam enquanto você mantiver o app instalado.</p>
+
+  <h2>Seus direitos</h2>
+  <p>A LGPD garante que você possa confirmar a existência do tratamento, acessar,
+  corrigir, anonimizar, portar ou eliminar seus dados, e revogar consentimento.
+  Como não temos cadastro, precisaremos que você informe o identificador de
+  instalação para localizar seus eventos — ou você pode simplesmente desinstalar
+  o app, o que apaga tudo que está no aparelho e interrompe qualquer coleta.</p>
+  <p>Para exercer qualquer desses direitos, escreva para
+  <a href="mailto:henrique-lima-neves@hotmail.com">henrique-lima-neves@hotmail.com</a>.</p>
+
+  <h2>Crianças</h2>
+  <p>O Muro não é direcionado a menores de 13 anos e não coleta dados dessa faixa
+  etária de forma consciente.</p>
+
+  <h2>Mudanças nesta política</h2>
+  <p>Se algo mudar, atualizamos esta página e a data no topo. Mudanças relevantes
+  no que é coletado serão comunicadas dentro do app.</p>
+
+  <hr>
+  <footer>
+    Dúvidas sobre privacidade: <a href="mailto:henrique-lima-neves@hotmail.com">henrique-lima-neves@hotmail.com</a><br>
+    Muro · <a href="/">voltar ao início</a>
+  </footer>
+
+</div>
+</body>
+</html>
