@@ -40,11 +40,13 @@
   .soon{position:relative;display:block;margin-top:28px;
         color:var(--muted);font-size:14px;letter-spacing:.02em}
 
-  .shot{margin:64px 0 0;border-radius:24px;overflow:hidden;background:#000;
-        border:1px solid var(--rule)}
-  .shot img{display:block;width:100%;height:auto}
-  .shot.pending{aspect-ratio:800/909;display:grid;place-items:center;
-        color:var(--muted);font-size:14px}
+  /* the phone screen alone — the Figma draws the device around it, so the
+     rounding and the hairline stand in for the hardware */
+  .shot{margin:72px auto 0;width:min(340px,80vw);aspect-ratio:375/812;
+        border-radius:44px;overflow:hidden;background:#000;
+        box-shadow:0 0 0 1px var(--rule), 0 40px 80px rgba(0,0,0,.6)}
+  .shot img{display:block;width:100%;height:100%;object-fit:cover}
+  .shot.pending{display:grid;place-items:center;color:var(--muted);font-size:14px}
 
   footer{margin:96px 0 0;border-top:1px solid var(--rule);
          padding:28px 0 64px;display:flex;justify-content:space-between;
@@ -65,7 +67,10 @@
     <span class="soon">Em breve na App Store</span>
   </section>
 
-  <div class="shot pending" id="shot">mockup</div>
+  <div class="shot">
+    <img src="assets/mockup.png" width="750" height="1624"
+         alt="Tela do Muro: um livro aberto em leitura, com a meta do dia cumprida.">
+  </div>
 
   <footer>
     <span>Muro</span>
