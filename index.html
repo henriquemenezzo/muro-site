@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Muro — Leia, pense e lembre sem distrações</title>
-<meta name="description" content="Um leitor de PDF que segura os aplicativos que te distraem até você ler as páginas do dia.">
+<meta name="description" content="Um leitor de PDF para iPhone que segura os apps que distraem até você ler as páginas do dia.">
 <style>
   :root{
     --ground:#101010;
@@ -15,29 +15,36 @@
     --sans:"Helvetica Neue",Helvetica,Arial,sans-serif;
   }
   *{box-sizing:border-box}
-  html{-webkit-text-size-adjust:100%}
+  html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
   body{margin:0;background:var(--ground);color:var(--ink);
        font-family:var(--sans);font-size:16px;line-height:1.65;
        -webkit-font-smoothing:antialiased}
 
   .page{max-width:800px;margin:0 auto;padding:0 24px}
 
-  /* the mark, alone at the top — the account buttons the mockup had
-     describe a product that doesn't exist yet, so they aren't here */
-  header{padding:44px 0 0;text-align:center}
+  /* the mark, alone at the top; the language switch sits at its right */
+  header{position:relative;padding:44px 0 0;text-align:center}
   header img{width:26px;height:42px;display:inline-block}
+  .lang{position:absolute;right:0;top:52px;color:var(--muted);font-size:14px;text-decoration:none}
+  .lang:hover{color:var(--ink)}
 
   .hero{position:relative;text-align:center;padding:64px 0 0}
   .hero::before{content:"";position:absolute;left:50%;top:40px;translate:-50% 0;
     width:min(680px,90vw);height:360px;border-radius:50%;
     background:radial-gradient(closest-side,rgba(238,238,238,.10),transparent 70%);
     pointer-events:none}
-  h1{position:relative;font-family:var(--serif);font-weight:400;
+  h1,.display{position:relative;font-family:var(--serif);font-weight:400;
      font-size:clamp(32px,5.6vw,60px);line-height:1.12;letter-spacing:-.01em;margin:0}
-  h1 em{font-style:italic}
+  h1 em,.display em{font-style:italic}
   .lede{position:relative;color:var(--muted);font-size:clamp(15px,2vw,18px);
         max-width:460px;margin:22px auto 0}
-  .soon{position:relative;display:block;margin-top:28px;
+
+  /* the App Store link: ink on the ground, the one filled shape on the page */
+  .store{position:relative;display:inline-block;margin-top:32px;padding:12px 24px;
+         border-radius:999px;background:var(--ink);color:var(--ground);
+         font-size:15px;font-weight:500;letter-spacing:.01em;text-decoration:none}
+  .store:hover{opacity:.88}
+  .soon{position:relative;display:block;margin-top:14px;
         color:var(--muted);font-size:14px;letter-spacing:.02em}
 
   /* the phone screen alone — the Figma draws the device around it, so the
@@ -45,38 +52,178 @@
   .shot{margin:72px auto 0;width:min(340px,80vw);aspect-ratio:375/812;
         border-radius:44px;overflow:hidden;background:#000;
         box-shadow:0 0 0 1px var(--rule), 0 40px 80px rgba(0,0,0,.6)}
-  .shot img{display:block;width:100%;height:100%;object-fit:cover}
+  .shot img,.shot video{display:block;width:100%;height:100%;object-fit:cover}
   .shot.pending{display:grid;place-items:center;color:var(--muted);font-size:14px}
+
+  /* what Muro does: a quiet grid of short entries, hairlines between */
+  .features{margin:96px 0 0}
+  .features h2{font-family:var(--serif);font-weight:400;font-size:28px;line-height:1.2;
+               margin:0 0 8px;text-align:center}
+  .grid{display:grid;grid-template-columns:1fr;gap:0 48px;margin-top:32px}
+  @media (min-width:640px){ .grid{grid-template-columns:1fr 1fr} }
+  .item{border-top:1px solid var(--rule);padding:24px 0 8px}
+  .item h3{font-family:var(--serif);font-weight:400;font-size:21px;line-height:1.3;margin:0 0 8px}
+  .item p{margin:0 0 16px;color:var(--muted);font-size:15px}
+  .note{margin:40px auto 0;max-width:520px;text-align:center;color:var(--muted);font-size:14px}
+  .note a{color:var(--muted)}
+  .note a:hover{color:var(--ink)}
+
+  section[id]{scroll-margin-top:24px}
+  .en{margin:120px 0 0;padding-top:72px;border-top:1px solid var(--rule)}
+  .en .hero{padding-top:0}
+  .en .hero::before{top:-24px}
 
   footer{margin:96px 0 0;border-top:1px solid var(--rule);
          padding:28px 0 64px;display:flex;justify-content:space-between;
          gap:16px;flex-wrap:wrap;color:var(--muted);font-size:14px}
   footer a{color:var(--muted);text-decoration:none}
   footer a:hover{color:var(--ink)}
+  footer .links{display:flex;flex-wrap:wrap;gap:8px 20px}
 </style>
 </head>
 <body>
 <div class="page">
 
-  <header><img src="assets/muro.svg" alt="Muro" width="26" height="42"></header>
+  <header>
+    <img src="assets/muro.svg" alt="Muro" width="26" height="42">
+    <a class="lang" href="#en" hreflang="en">English</a>
+  </header>
 
-  <section class="hero">
-    <h1><em>Leia</em>, pense e lembre<br>sem distrações</h1>
-    <p class="lede">Um leitor de PDF que segura os aplicativos que te distraem
-    até você ler as páginas do dia.</p>
-    <span class="soon">Em breve na App Store</span>
+  <section id="pt">
+
+    <div class="hero">
+      <h1><em>Leia</em>, pense e lembre<br>sem distrações</h1>
+      <p class="lede">Um leitor de PDF para iPhone que segura os apps que distraem
+      até você ler as páginas do dia.</p>
+      <!-- PLACEHOLDER — LINK DA APP STORE. Quando o app for aprovado, troque este
+           <span> por <a class="store" href="https://apps.apple.com/..."> com o link do
+           Muro na App Store (https://apps.apple.com/...) quando o app estiver no
+           ar. O mesmo link aparece de novo na versão em inglês, mais abaixo. -->
+      <span class="store" data-placeholder="app-store-link">Em breve na App Store</span>
+      <span class="soon">Para iPhone · Grátis para baixar</span>
+    </div>
+
+    <div class="shot">
+      <!-- A page read and counted: the Focus hourglass turns to "Feito".
+           The still is the poster, and what shows without video or with
+           reduced motion. -->
+      <video src="assets/home.mp4" poster="assets/mockup.png" width="750" height="1630"
+             autoplay muted loop playsinline preload="metadata"
+             aria-label="Tela do Muro: uma página lida conta, e a meta do Foco fica cumprida."></video>
+    </div>
+
+    <div class="features">
+      <h2>O que o Muro faz</h2>
+      <div class="grid">
+        <div class="item">
+          <h3>Um pouco todo dia</h3>
+          <p>Uma página conta quando fica na tela o tempo de ser lida. Ler pelo menos uma
+          por dia mantém a sua ofensiva.</p>
+        </div>
+        <div class="item">
+          <h3>Foco</h3>
+          <p>Escolha os apps que te distraem e quantas páginas ler por dia. Os apps ficam
+          bloqueados até você ler essas páginas. Usa o Tempo de Uso da Apple, e o Muro
+          nunca sabe quais apps você escolheu.</p>
+        </div>
+        <div class="item">
+          <h3>Grifos, notas e revisão</h3>
+          <p>Grife trechos e escreva notas enquanto lê. Todo dia, algumas voltam numa
+          revisão rápida, para você lembrar do que leu.</p>
+        </div>
+        <div class="item">
+          <h3>Liga e grupos</h3>
+          <p>Cada página lida vale XP. Dispute a Liga do mês com outros leitores, ou crie
+          um grupo com quem você segue e veja quem lê mais na semana.</p>
+        </div>
+        <div class="item">
+          <h3>Seus livros em qualquer iPhone</h3>
+          <p>Com uma conta, seus livros, grifos, notas e progresso vão com você para outro
+          iPhone. Você entra com a Apple ou com o Google.</p>
+        </div>
+        <div class="item">
+          <h3>Muro Premium</h3>
+          <p>Foco, notas sem limite e criar grupos, com 7 dias grátis para começar. Sem o
+          Premium, você lê, mantém a ofensiva e guarda até 50 notas.</p>
+        </div>
+      </div>
+      <p class="note">Sem propaganda. O que você lê e escreve não é vendido para ninguém.
+      Veja a <a href="privacidade.html">Política de Privacidade</a> e os
+      <a href="termos.html">Termos de Uso</a>.</p>
+    </div>
+
   </section>
 
-  <div class="shot">
-    <img src="assets/mockup.png" width="750" height="1624"
-         alt="Tela do Muro: um livro aberto em leitura, com a meta do dia cumprida.">
-  </div>
+  <section id="en" class="en" lang="en">
+
+    <div class="hero">
+      <h2 class="display"><em>Read</em>, think and remember<br>without distractions</h2>
+      <p class="lede">A PDF reader for iPhone that holds back distracting apps until
+      you read the day’s pages.</p>
+      <!-- PLACEHOLDER — APP STORE LINK. Becomes an <a> with the same link as the Portuguese one. -->
+      <span class="store" data-placeholder="app-store-link">Coming soon to the App Store</span>
+      <span class="soon">For iPhone · Free to download</span>
+    </div>
+
+    <div class="features">
+      <h2>What Muro does</h2>
+      <div class="grid">
+        <div class="item">
+          <h3>A little every day</h3>
+          <p>A page counts once it has been on screen long enough to be read. Reading at
+          least one a day keeps your streak.</p>
+        </div>
+        <div class="item">
+          <h3>Focus</h3>
+          <p>Choose the apps that distract you and how many pages to read a day. The apps
+          stay blocked until you read those pages. It uses Apple’s Screen Time, and Muro
+          never knows which apps you chose.</p>
+        </div>
+        <div class="item">
+          <h3>Highlights, notes and review</h3>
+          <p>Highlight passages and write notes as you read. Every day, some come back in a
+          quick review, so you remember what you read.</p>
+        </div>
+        <div class="item">
+          <h3>League and groups</h3>
+          <p>Every page you read is worth XP. Compete in the monthly League with other
+          readers, or create a group with people you follow and see who reads most each
+          week.</p>
+        </div>
+        <div class="item">
+          <h3>Your books on any iPhone</h3>
+          <p>With an account, your books, highlights, notes and progress go with you to
+          another iPhone. You sign in with Apple or Google.</p>
+        </div>
+        <div class="item">
+          <h3>Muro Premium</h3>
+          <p>Focus, unlimited notes and creating groups, with 7 days free to start. Without
+          Premium, you read, keep your streak and save up to 50 notes.</p>
+        </div>
+      </div>
+      <p class="note">No ads. What you read and write is not sold to anyone. See the
+      <a href="privacidade.html#en">Privacy Policy</a> and the
+      <a href="termos.html#en">Terms of Use</a>.</p>
+    </div>
+
+  </section>
 
   <footer>
     <span>Muro</span>
-    <span><a href="privacidade.html">Política de Privacidade</a></span>
+    <span class="links">
+      <a href="privacidade.html">Privacidade</a>
+      <a href="termos.html">Termos de Uso</a>
+      <a href="privacidade.html#en" lang="en">Privacy</a>
+      <a href="termos.html#en" lang="en">Terms</a>
+    </span>
   </footer>
 
 </div>
+<script>
+  // Reduced motion: the still frame instead of the loop.
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    document.querySelectorAll('.shot video').forEach(v => { v.removeAttribute('autoplay'); v.pause(); });
+  }
+</script>
 </body>
 </html>

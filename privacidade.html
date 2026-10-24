@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Política de Privacidade · Muro</title>
+<meta name="description" content="O que o Muro guarda, o que mostra aos outros leitores e o que nunca sai do seu iPhone.">
 <style>
   :root{
     --ground:#101010;      /* mesmo fundo da landing e do app */
@@ -14,13 +15,18 @@
     --sans:"Helvetica Neue",Helvetica,Arial,sans-serif;
   }
   *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
   body{
     margin:0;background:var(--ground);color:var(--ink);
     font-family:var(--sans);font-size:16px;line-height:1.65;
     -webkit-font-smoothing:antialiased;
   }
   .wrap{max-width:680px;margin:0 auto;padding:80px 24px 120px}
+  .top{display:flex;justify-content:space-between;align-items:baseline;gap:16px}
   .mark{font-family:var(--serif);font-size:18px;letter-spacing:.02em;color:var(--ink);text-decoration:none}
+  .lang{color:var(--muted);font-size:14px;text-decoration:none}
+  .lang:hover{color:var(--ink)}
+  section{scroll-margin-top:24px}
   h1{font-family:var(--serif);font-size:44px;line-height:1.1;font-weight:400;margin:56px 0 12px;letter-spacing:-.01em}
   h1 em{font-style:italic}
   .updated{color:var(--muted);font-size:14px;margin:0 0 8px}
@@ -34,107 +40,573 @@
   hr{border:0;border-top:1px solid var(--rule);margin:64px 0}
   a{color:var(--ink)}
   footer{margin-top:72px;color:var(--muted);font-size:14px}
+  @media (max-width:480px){ h1{font-size:36px} }
 </style>
 </head>
 <body>
 <div class="wrap">
 
-  <a class="mark" href="index.html">Muro</a>
+  <div class="top">
+    <a class="mark" href="index.html">Muro</a>
+    <a class="lang" href="#en" hreflang="en">English</a>
+  </div>
+
+  <section id="pt">
 
   <h1><em>Privacidade</em> no Muro</h1>
-  <p class="updated">Atualizada em 3 de setembro de 2026</p>
+  <p class="updated">Versão de 24 de outubro de 2026</p>
 
-  <p class="lede">O Muro é um app de leitura. Quase tudo que ele sabe sobre você
-  nunca sai do seu iPhone — e o que sai são números sobre o uso do app, nunca
-  sobre o que você lê ou escreve.</p>
+  <p class="lede">O Muro é um app de leitura. Sem conta, o que você lê e escreve
+  fica no seu iPhone. Com conta, o Muro guarda seus livros e notas para eles irem
+  com você, e mostra aos outros leitores só o que está descrito aqui.</p>
 
-  <h2>Quem somos</h2>
-  <p>O Muro é operado por <strong>Henrique Lima Menezes das Neves</strong>,
-  responsável pelo tratamento dos dados descritos aqui (o “controlador”, nos
-  termos da LGPD — Lei nº 13.709/2018).</p>
-
-  <h2>O que fica só no seu aparelho</h2>
-  <p>Estes dados são gravados no armazenamento privado do app e <strong>nunca são
-  enviados para nós nem para terceiros</strong>:</p>
+  <h2>Em poucas linhas</h2>
   <ul>
-    <li>Os <strong>PDFs</strong> que você importa, e as capas geradas a partir deles.</li>
-    <li>Sua <strong>biblioteca</strong>: títulos, número de páginas, progresso de leitura.</li>
-    <li>Suas <strong>notas</strong>, coleções e histórico de revisão.</li>
-    <li>Sua <strong>ofensiva</strong> (streak), dias lidos, metas e tempo de leitura.</li>
-    <li>Sua configuração do <strong>Foco</strong>, incluindo quais apps você escolheu bloquear.</li>
-  </ul>
-  <p>Se você desinstalar o Muro, tudo isso é apagado com ele. Não temos cópia.</p>
-
-  <h2>O que é coletado</h2>
-  <p>Para entender se o app funciona e onde ele falha, coletamos eventos de uso
-  através do <strong>Mixpanel</strong>, que atua como operador em nosso nome:</p>
-  <ul>
-    <li>Um <strong>identificador de instalação</strong> gerado pelo próprio Muro (um número
-    aleatório). Não é o identificador do seu aparelho, não é o seu Apple ID, e não
-    permite chegar até você — mas identifica a instalação de forma persistente, e
-    por isso o tratamos como dado pessoal.</li>
-    <li><strong>Eventos de uso</strong>: abrir o app, importar um livro, iniciar e encerrar
-    uma sessão de leitura, cumprir a meta do dia, configurar ou pausar o Foco,
-    encontrar a tela de bloqueio, criar uma nota, revisar, compartilhar.</li>
-    <li><strong>Números</strong> ligados a esses eventos: quantas páginas, quantos segundos,
-    tamanho da ofensiva, quantas notas — e a versão do app.</li>
+    <li>Sem conta, nada do que você lê vai para o servidor do Muro. Só saem números
+    sobre o uso do app, e você pode desligar isso.</li>
+    <li>Com conta, seus livros (inclusive os PDFs), grifos, notas e progresso ficam
+    guardados na sua conta, para sincronizar entre iPhones.</li>
+    <li>Outros leitores veem seu perfil: nome, @, foto ou retrato, seus números de
+    leitura, sua estante (título, autor e capa dos livros) e sua posição nos
+    rankings. <strong>Nunca o texto das suas notas e grifos.</strong></li>
+    <li>Quais apps você bloqueia no Foco nunca sai do iPhone. Nem o Muro sabe quais são.</li>
+    <li>Não há propaganda, não vendemos dados e não rastreamos você em outros apps.</li>
   </ul>
 
-  <h2>O que nunca é coletado</h2>
-  <p>Isto não é uma promessa vaga; é como o app foi construído:</p>
-  <ul>
-    <li><strong>O texto das suas notas</strong> e o nome das suas coleções.</li>
-    <li><strong>Títulos, autores ou nomes de arquivo</strong> dos seus livros.</li>
-    <li><strong>Qualquer conteúdo das páginas</strong> que você lê.</li>
-    <li><strong>Quais aplicativos você bloqueia.</strong> O iOS entrega ao Muro apenas
-    referências opacas — nem nós conseguimos saber quais apps você escolheu.</li>
-    <li>Seu nome, e-mail, telefone, localização ou lista de contatos. O Muro não
-    tem cadastro nem login.</li>
-  </ul>
-
-  <h2>Foco e o Tempo de Uso da Apple</h2>
-  <p>O bloqueio de aplicativos usa o Screen Time da Apple e só funciona depois que
-  você autoriza, com biometria, no seu próprio aparelho. Essa autorização é sua e
-  pode ser revogada a qualquer momento nos Ajustes do iOS. O Muro não gerencia
-  aparelhos de outras pessoas e não é um controle parental.</p>
-
-  <h2>Por que tratamos esses dados</h2>
-  <p>Com base no <strong>legítimo interesse</strong> (art. 7º, IX da LGPD): entender como o
-  app é usado para corrigir defeitos e melhorá-lo. Não usamos esses dados para
-  publicidade, não fazemos rastreamento entre aplicativos, não vendemos nem
-  compartilhamos com corretores de dados, e não tomamos decisões automatizadas
-  sobre você.</p>
-
-  <h2>Com quem compartilhamos</h2>
-  <p>Apenas com o <strong>Mixpanel</strong>, que processa os eventos por nossa conta e sob
-  nossas instruções. Os dados podem ser armazenados fora do Brasil. Nenhum outro
-  terceiro recebe dados do Muro.</p>
-
-  <h2>Por quanto tempo guardamos</h2>
-  <p>Os eventos de uso ficam retidos por até 24 meses e depois são descartados.
-  Os dados no seu aparelho ficam enquanto você mantiver o app instalado.</p>
-
-  <h2>Seus direitos</h2>
-  <p>A LGPD garante que você possa confirmar a existência do tratamento, acessar,
-  corrigir, anonimizar, portar ou eliminar seus dados, e revogar consentimento.
-  Como não temos cadastro, precisaremos que você informe o identificador de
-  instalação para localizar seus eventos — ou você pode simplesmente desinstalar
-  o app, o que apaga tudo que está no aparelho e interrompe qualquer coleta.</p>
-  <p>Para exercer qualquer desses direitos, escreva para
+  <h2>Quem é o responsável</h2>
+  <p>O Muro é feito por <strong>Henrique Lima Menezes das Neves</strong>, pessoa
+  física, no Brasil. Ele é o controlador dos dados descritos aqui, nos termos da
+  LGPD (Lei nº 13.709/2018). Para qualquer assunto sobre seus dados, escreva para
   <a href="mailto:henrique-lima-neves@hotmail.com">henrique-lima-neves@hotmail.com</a>.</p>
 
+  <h2>Usando o Muro sem conta</h2>
+  <p>Você pode ler sem criar conta. Nesse caso, o livro, o PDF, o progresso, a
+  ofensiva, as metas e o tempo de leitura ficam só no armazenamento do app, no seu
+  iPhone. Apagar o app apaga tudo isso, e não temos cópia.</p>
+  <p>Notas, grifos, revisão, Foco, outros livros, compartilhar e rankings pedem uma
+  conta. Se você criar uma depois, o que já está no iPhone passa a ser guardado nela.</p>
+
+  <h2>Criar conta e entrar</h2>
+  <p>Você entra com a <strong>Apple</strong> ou com o <strong>Google</strong>. O Muro
+  não tem senha própria.</p>
+  <ul>
+    <li><strong>Apple:</strong> recebemos um identificador da sua conta Apple, o
+    e-mail (ou o endereço de encaminhamento da Apple, se você escolher ocultar o seu)
+    e, na primeira vez, o nome.</li>
+    <li><strong>Google:</strong> o login acontece numa página do próprio Google, e
+    recebemos o nome e o e-mail da sua conta Google.</li>
+  </ul>
+  <p>A conta guarda um número criado pelo servidor do Muro, o e-mail, o nome que você
+  escolher e o seu @. A sessão fica guardada nas Chaves (Keychain) deste iPhone.</p>
+
+  <h2>O que a conta guarda</h2>
+  <p>Com conta, o Muro guarda no servidor, para você reencontrar tudo em outro iPhone
+  ou depois de reinstalar o app:</p>
+  <ul>
+    <li><strong>A estante:</strong> título e autor de cada livro, nome do arquivo,
+    páginas lidas, onde você parou, datas e uma impressão digital do arquivo (um
+    código calculado a partir dele, para reconhecer o mesmo livro).</li>
+    <li><strong>Os arquivos dos livros</strong> (PDFs; um EPUB vira PDF ao entrar no
+    Muro) e as capas, numa <strong>pasta privada da sua conta</strong>. Só a sua conta
+    lê e escreve nessa pasta. Hoje cabem arquivos de até 50 MB cada, até 300 MB por
+    conta. O que passar disso fica só no iPhone.</li>
+    <li><strong>Grifos e notas:</strong> o texto que você escreveu, o trecho grifado,
+    a página e a cor. Também os nomes das suas coleções e a fila de revisão.</li>
+    <li><strong>Progresso:</strong> ofensiva, dias lidos, metas, tempo de leitura,
+    XP, nível e conquistas.</li>
+    <li>O tipo de aparelho que sincronizou por último (por exemplo, “iPhone”).</li>
+  </ul>
+  <p>Enquanto a conta estiver aberta, isso é enviado sozinho: ao abrir o app e alguns
+  segundos depois de cada mudança. Hoje não há opção para deixar os PDFs de fora.
+  Para não enviar nada, use o Muro sem conta. Uma nota começada e ainda não salva
+  fica só no iPhone.</p>
+  <p>Não usamos criptografia de ponta a ponta. Os dados viajam protegidos (HTTPS) e
+  ficam no servidor com regras de acesso que só deixam a sua conta ler. Quem mantém o
+  servidor consegue, tecnicamente, acessá-lo. Não lemos seus livros nem suas notas,
+  a não ser que você peça ajuda (por exemplo, para recuperar um livro) ou que a lei
+  obrigue.</p>
+
+  <h2>O que os outros leitores veem</h2>
+  <p>Com conta, você tem um perfil. Qualquer pessoa com conta no Muro pode buscar você
+  pelo nome ou pelo @ e ver:</p>
+  <ul>
+    <li>seu nome, seu @ e sua foto ou retrato (um desenho do próprio Muro);</li>
+    <li>se você é Muro Premium;</li>
+    <li>nível, XP da semana e do mês, ofensiva, conquistas, total de páginas, de
+    livros terminados, de notas (só o número) e de tempo lido, as páginas e o XP dos
+    últimos 7 dias, e desde quando você lê no Muro;</li>
+    <li>sua estante: título, autor e capa dos seus livros, quanto você já leu de cada
+    um, qual está lendo e quando terminou (o livro de exemplo não entra);</li>
+    <li>quantos e quais leitores você segue, e quais seguem você.</li>
+  </ul>
+  <p>Você também aparece:</p>
+  <ul>
+    <li>na <strong>Liga do mês</strong>, se leu no mês, com o seu XP do mês;</li>
+    <li>nos <strong>grupos</strong> em que estiver, para quem está neles, com o
+    resultado de cada semana;</li>
+    <li>no sino de outras pessoas, quando você passa a segui-las, quando as adiciona a
+    um grupo ou quando passa alguém que segue você no XP da semana.</li>
+  </ul>
+  <p>Quem você bloquear deixa de ver tudo isso, e você deixa de ver essa pessoa. Hoje
+  o perfil não tem opção para esconder a estante ou os números.</p>
+  <p>As imagens (foto de perfil, capas e foto de grupo) ficam num espaço de arquivos
+  público. O app só as mostra para quem tem conta, mas quem tiver o endereço exato de
+  uma imagem consegue abri-la. Esses endereços são longos, sem padrão, e o Muro não
+  os publica.</p>
+
+  <h2>Foto de perfil e o filtro de fotos</h2>
+  <p>O Muro só recebe a foto que você escolhe no seletor do iOS. Ele não tem acesso à
+  sua galeria. A foto é reduzida para 400 × 400 pixels e enviada ao servidor.</p>
+  <p>Antes de qualquer pessoa ver a foto, ela é enviada à <strong>OpenAI</strong>, que
+  verifica, de forma automática, se há nudez, violência ou algo parecido. Aprovada,
+  ela vira a sua foto. Recusada, ela é apagada, você volta a usar um retrato e quem
+  modera o Muro é avisado de que uma foto foi recusada. Se a verificação não funcionar
+  naquele momento, a foto pode aparecer sem ter sido conferida, e continua sujeita a
+  denúncia. Os retratos são desenhos do próprio Muro e não passam pelo filtro.</p>
+  <p>Para salvar um card na galeria, o Muro pede só a permissão de adicionar fotos,
+  não a de ver as suas.</p>
+
+  <h2>Foco e o Tempo de Uso da Apple</h2>
+  <p>O Foco usa o Tempo de Uso (Screen Time) da Apple e só funciona depois que você
+  autoriza no seu iPhone. Você escolhe os apps na lista da própria Apple. O iOS
+  entrega ao Muro só códigos opacos: <strong>o Muro não consegue saber quais apps você
+  escolheu</strong>. Esses códigos ficam no iPhone e não vão para a sua conta; em
+  outro iPhone, você escolhe os apps de novo.</p>
+  <p>Os dados de uso recebem só quantos apps e categorias foram escolhidos, nunca quais.
+  A autorização pode ser tirada a qualquer momento nos Ajustes do iOS. O Muro não é um
+  controle parental e não gerencia aparelhos de outras pessoas.</p>
+
+  <h2>Dados de uso (Mixpanel)</h2>
+  <p>Para entender o que funciona e onde o app falha, o Muro envia eventos de uso ao
+  <strong>Mixpanel</strong>, que os processa em nosso nome. Isso vale com ou sem conta.
+  São enviados:</p>
+  <ul>
+    <li>um <strong>número de instalação</strong> aleatório, criado pelo próprio Muro.
+    Não é o identificador do aparelho, não é o seu Apple ID e não é o número da sua
+    conta. Reinstalar o app cria um número novo;</li>
+    <li><strong>eventos</strong> como: abrir o app, importar um livro, uma página
+    contar como lida, começar e terminar uma leitura, cumprir a meta do dia, passos
+    do Foco, criar ou apagar uma nota, revisar, compartilhar, subir de nível, entrar
+    na conta (e por qual meio) e excluir a conta (com o motivo escolhido numa lista);</li>
+    <li><strong>números</strong> ligados a esses eventos: páginas, segundos, ofensiva,
+    totais, quantas palavras tem uma nota, modo de leitura, tamanho do texto, a versão
+    do app e um número aleatório para cada livro;</li>
+    <li>o modelo do iPhone e a versão do iOS, que a ferramenta do Mixpanel junta sozinha.</li>
+  </ul>
+  <p><strong>Nunca são enviados:</strong> títulos, autores ou nomes de arquivo; o
+  conteúdo das páginas; o texto das notas e dos trechos grifados; o nome das coleções;
+  quais apps você bloqueia; seu nome, e-mail, @, foto ou o número da sua conta. A
+  localização pelo endereço IP está desligada.</p>
+  <p>Esses eventos não são ligados à sua conta. Para desligar o envio, vá em
+  <strong>Ajustes › Privacidade › Dados de uso</strong>. Desligado, nada mais é
+  enviado, e o que estava na fila é descartado.</p>
+
+  <h2>Notificações</h2>
+  <p>Os lembretes (hora de ler, ofensiva, notas para revisar e o aviso de que o teste
+  grátis acaba em 2 dias) são agendados no próprio iPhone. O Muro não tem servidor de
+  notificações. O sino dentro do app (quem seguiu você, grupos, avisos do Muro) é lido
+  do servidor enquanto o app está aberto.</p>
+
+  <h2>Revisão em voz alta, tradução e dicionário</h2>
+  <p>Na revisão, você pode ler uma nota em voz alta e o Muro acompanha palavra por
+  palavra. Para isso, o iOS pede acesso ao microfone e ao reconhecimento de fala. Com
+  internet, a fala e as palavras da nota são processadas pela Apple; sem internet,
+  tudo fica no iPhone. O Muro não grava nem guarda o áudio. Traduzir e consultar o
+  dicionário usam recursos do próprio iOS.</p>
+
+  <h2>Compras (Muro Premium)</h2>
+  <p>O pagamento é feito pela Apple. O Muro nunca vê os dados do seu cartão. Com conta,
+  o app envia ao servidor o comprovante que a Apple assinou (qual plano, datas, número
+  da transação e se é compra real ou de teste). O servidor confere a assinatura da
+  Apple e guarda o comprovante na sua conta, para o Premium valer nos seus outros
+  iPhones e aparecer no seu perfil. A compra leva o número da sua conta, para não ser
+  usada por outra.</p>
+
+  <h2>Denúncias e bloqueios</h2>
+  <p>Quando você denuncia alguém, guardamos quem denunciou, quem foi denunciado, o
+  motivo e o nome e o @ da pessoa naquele momento. A pessoa denunciada não é avisada.
+  Quando você bloqueia alguém, guardamos o bloqueio para esconder vocês um do outro.
+  Quem modera o Muro vê as denúncias dentro do app.</p>
+
+  <h2>Com quem os dados são tratados</h2>
+  <p>Estes serviços tratam dados em nosso nome, só para o que está descrito aqui:</p>
+  <ul>
+    <li><strong>Supabase:</strong> o servidor do Muro. Conta, perfil, sincronização,
+    arquivos, rankings, grupos, sino e denúncias.</li>
+    <li><strong>Mixpanel:</strong> os dados de uso.</li>
+    <li><strong>OpenAI:</strong> só as fotos de perfil novas, para o filtro.</li>
+    <li><strong>Apple:</strong> entrar com a Apple, compras na App Store, Tempo de Uso e
+    reconhecimento de fala.</li>
+    <li><strong>Google:</strong> só se você entrar com o Google.</li>
+  </ul>
+  <p>Quando você compartilha um card, ele vai para o app que você escolher (Instagram,
+  WhatsApp e outros), e a partir daí vale a política desse app. Também podemos entregar
+  dados se uma lei ou uma ordem judicial obrigar.</p>
+
+  <h2>Transferência internacional</h2>
+  <p>Mixpanel, OpenAI, Google e Apple tratam dados fora do Brasil, principalmente nos
+  Estados Unidos. O servidor do Supabase também pode ficar fora do Brasil. Ao usar o
+  Muro, seus dados podem ser tratados nesses países, sempre só para o que está
+  descrito aqui.</p>
+
+  <h2>Por que tratamos esses dados</h2>
+  <ul>
+    <li><strong>Para cumprir o que o app oferece</strong> (execução de contrato, art.
+    7º, V da LGPD): conta, sincronização, perfil, rankings, grupos e Premium.</li>
+    <li><strong>Por legítimo interesse</strong> (art. 7º, IX): dados de uso para
+    melhorar o app, segurança, regras contra trapaça nos rankings, moderação e o
+    filtro de fotos.</li>
+    <li><strong>Para cumprir a lei</strong> (art. 7º, II), quando ela exigir.</li>
+  </ul>
+  <p>Não usamos seus dados para propaganda e não tomamos decisões automáticas sobre
+  você. A única checagem automática é o filtro de fotos.</p>
+
+  <h2>Por quanto tempo guardamos</h2>
+  <ul>
+    <li>Os dados da conta ficam enquanto a conta existir.</li>
+    <li>Um livro ou uma nota que você apaga sai da conta na sincronização seguinte. O
+    PDF e a capa de um livro apagado também saem.</li>
+    <li>Os eventos de uso ficam no Mixpanel por até 24 meses.</li>
+    <li>Uma denúncia fica enquanto a conta denunciada existir.</li>
+    <li>Cópias de segurança do servidor, se houver, podem guardar dados por pouco tempo,
+    até serem substituídas.</li>
+  </ul>
+
+  <h2>Excluir a conta</h2>
+  <p>Vá em <strong>Ajustes › Conta › Excluir conta</strong>. O Muro pergunta o motivo
+  (dá para escolher “Prefiro não dizer”) e pede que você digite EXCLUIR. Ao confirmar,
+  na mesma hora:</p>
+  <ul>
+    <li>saem do servidor: a conta, o e-mail, o nome, o @, a foto, o perfil, os
+    números, a estante, quem você segue e quem segue você, os bloqueios, o sino, os
+    grupos em que você está, o que foi sincronizado, o comprovante do Premium, os PDFs
+    e capas da sua pasta e as imagens que você enviou;</li>
+    <li>tudo sai do iPhone também, e o Muro volta ao começo.</li>
+  </ul>
+  <p>Algumas coisas continuam:</p>
+  <ul>
+    <li>um grupo que você criou continua para quem está nele, e passa para quem está
+    no grupo há mais tempo. Se ninguém mais estiver nele, ele é apagado;</li>
+    <li>as denúncias que você fez continuam, sem o seu nome, para a moderação;</li>
+    <li>os eventos de uso continuam no Mixpanel, porque não estão ligados à conta;</li>
+    <li><strong>excluir a conta não cancela a assinatura.</strong> Cancele nos Ajustes
+    do iPhone, em Assinaturas.</li>
+  </ul>
+  <p>Você também pode desligar o Muro da sua conta Apple ou Google nos ajustes dessas
+  contas. Sair da conta (Ajustes › Conta › Sair) não apaga nada: seus dados continuam
+  na conta e voltam quando você entrar de novo.</p>
+
+  <h2>Seus direitos</h2>
+  <p>A LGPD garante que você possa: confirmar se tratamos seus dados; acessá-los;
+  corrigi-los; pedir que sejam anonimizados, bloqueados ou apagados; levá-los para outro
+  serviço; saber com quem eles são compartilhados; revogar um consentimento; e se opor
+  a um tratamento feito por legítimo interesse. Você também pode reclamar à ANPD
+  (Autoridade Nacional de Proteção de Dados).</p>
+  <p>Nome, @ e foto você muda no próprio app, no Perfil. Para o resto, escreva para
+  <a href="mailto:henrique-lima-neves@hotmail.com">henrique-lima-neves@hotmail.com</a>
+  a partir do e-mail da sua conta. Respondemos em até 15 dias.</p>
+  <p>Como os dados de uso não estão ligados à conta, não conseguimos encontrá-los pelo
+  seu nome ou e-mail. Para parar de enviá-los, use Ajustes › Privacidade › Dados de uso.</p>
+
   <h2>Crianças</h2>
-  <p>O Muro não é direcionado a menores de 13 anos e não coleta dados dessa faixa
-  etária de forma consciente.</p>
+  <p>O Muro não é feito para crianças. Não crie conta se você tiver menos de 13 anos.
+  Entre 13 e 18 anos, use o Muro com o conhecimento dos seus pais ou responsáveis. Se
+  soubermos que uma conta é de alguém com menos de 13 anos, nós a apagamos.</p>
+
+  <h2>Segurança</h2>
+  <p>A comunicação com o servidor usa HTTPS. Cada conta só lê os próprios dados, e o
+  servidor confere as regras de novo, seja qual for o pedido do app. Nenhum sistema é
+  perfeito: se houver um incidente que possa trazer risco a você, avisamos você e a
+  ANPD, como a lei manda.</p>
 
   <h2>Mudanças nesta política</h2>
-  <p>Se algo mudar, atualizamos esta página e a data no topo. Mudanças relevantes
-  no que é coletado serão comunicadas dentro do app.</p>
+  <p>Se algo mudar, atualizamos esta página e a data no topo. Mudanças importantes no
+  que é coletado ou mostrado também são avisadas dentro do app.</p>
+
+  </section>
+
+  <hr>
+
+  <section id="en" lang="en">
+
+  <div class="top">
+    <span class="mark">Muro</span>
+    <a class="lang" href="#pt" hreflang="pt-BR">Português</a>
+  </div>
+
+  <h1><em>Privacy</em> at Muro</h1>
+  <p class="updated">Version of October 24, 2026</p>
+
+  <p class="lede">Muro is a reading app. Without an account, what you read and write
+  stays on your iPhone. With an account, Muro keeps your books and notes so they go
+  with you, and shows other readers only what is described here.</p>
+
+  <h2>In a few lines</h2>
+  <ul>
+    <li>Without an account, nothing you read goes to Muro’s server. Only numbers about
+    how the app is used are sent, and you can turn that off.</li>
+    <li>With an account, your books (including the PDFs), highlights, notes and progress
+    are kept in your account, to sync between iPhones.</li>
+    <li>Other readers see your profile: name, @, photo or portrait, your reading numbers,
+    your shelf (title, author and cover of your books) and where you stand in the
+    rankings. <strong>Never the text of your notes and highlights.</strong></li>
+    <li>Which apps you block with Focus never leaves your iPhone. Not even Muro knows
+    which they are.</li>
+    <li>There are no ads, we don’t sell data, and we don’t track you across other apps.</li>
+  </ul>
+
+  <h2>Who is responsible</h2>
+  <p>Muro is made by <strong>Henrique Lima Menezes das Neves</strong>, an individual
+  in Brazil. He is the controller of the data described here under Brazil’s data
+  protection law (LGPD, Law No. 13,709/2018). For anything about your data, write to
+  <a href="mailto:henrique-lima-neves@hotmail.com">henrique-lima-neves@hotmail.com</a>.</p>
+
+  <h2>Using Muro without an account</h2>
+  <p>You can read without an account. Then the book, the PDF, your progress, streak,
+  goals and reading time stay only in the app’s storage on your iPhone. Deleting the
+  app deletes all of it, and we have no copy.</p>
+  <p>Notes, highlights, review, Focus, more books, sharing and rankings need an account.
+  If you create one later, what is already on your iPhone is then kept in it.</p>
+
+  <h2>Creating an account and signing in</h2>
+  <p>You sign in with <strong>Apple</strong> or <strong>Google</strong>. Muro has no
+  password of its own.</p>
+  <ul>
+    <li><strong>Apple:</strong> we receive an identifier for your Apple account, your
+    e-mail (or Apple’s relay address, if you choose to hide yours) and, the first time,
+    your name.</li>
+    <li><strong>Google:</strong> you sign in on Google’s own page, and we receive the
+    name and e-mail of your Google account.</li>
+  </ul>
+  <p>The account keeps a number created by Muro’s server, your e-mail, the name you
+  choose and your @. The session is kept in this iPhone’s Keychain.</p>
+
+  <h2>What the account keeps</h2>
+  <p>With an account, Muro keeps on its server, so you find everything again on another
+  iPhone or after reinstalling:</p>
+  <ul>
+    <li><strong>Your shelf:</strong> each book’s title and author, file name, pages read,
+    where you stopped, dates, and a fingerprint of the file (a code computed from it, to
+    recognize the same book).</li>
+    <li><strong>The books’ files</strong> (PDFs; an EPUB becomes a PDF when it enters
+    Muro) and their covers, in a <strong>private folder of your account</strong>. Only
+    your account can read and write in it. For now, files of up to 50 MB each fit, up to
+    300 MB per account. Anything larger stays only on the iPhone.</li>
+    <li><strong>Highlights and notes:</strong> the text you wrote, the highlighted
+    passage, the page and the color. Also the names of your collections and your review
+    queue.</li>
+    <li><strong>Progress:</strong> streak, days read, goals, reading time, XP, level and
+    achievements.</li>
+    <li>The kind of device that synced last (for example, “iPhone”).</li>
+  </ul>
+  <p>While you are signed in, this is sent on its own: when you open the app and a few
+  seconds after each change. For now there is no option to leave the PDFs out. To send
+  nothing, use Muro without an account. A note you started and haven’t saved stays only
+  on the iPhone.</p>
+  <p>We don’t use end-to-end encryption. Data travels protected (HTTPS) and sits on the
+  server under access rules that only let your account read it. Whoever runs the server
+  can technically reach it. We don’t read your books or notes unless you ask for help
+  (for example, to recover a book) or the law requires it.</p>
+
+  <h2>What other readers see</h2>
+  <p>With an account, you have a profile. Anyone with a Muro account can search for you
+  by name or @ and see:</p>
+  <ul>
+    <li>your name, your @ and your photo or portrait (a drawing made by Muro);</li>
+    <li>whether you have Muro Premium;</li>
+    <li>level, this week’s and this month’s XP, streak, achievements, total pages, books
+    finished, notes (only the number) and time read, your pages and XP over the last
+    7 days, and since when you have read on Muro;</li>
+    <li>your shelf: title, author and cover of your books, how far you are in each, which
+    one you are reading and when you finished (the sample book is left out);</li>
+    <li>how many and which readers you follow, and which follow you.</li>
+  </ul>
+  <p>You also appear:</p>
+  <ul>
+    <li>in the <strong>monthly League</strong>, if you read that month, with your XP for
+    the month;</li>
+    <li>in the <strong>groups</strong> you are in, to the people in them, with each
+    week’s result;</li>
+    <li>in other people’s bell, when you start following them, add them to a group, or
+    pass someone who follows you in the week’s XP.</li>
+  </ul>
+  <p>Anyone you block stops seeing all of this, and you stop seeing them. For now, the
+  profile has no option to hide the shelf or the numbers.</p>
+  <p>Images (profile photo, covers and group photo) are kept in a public file space. The
+  app shows them only to people with an account, but anyone with an image’s exact address
+  can open it. Those addresses are long and random, and Muro doesn’t publish them.</p>
+
+  <h2>Profile photo and the photo filter</h2>
+  <p>Muro only receives the photo you pick in the iOS picker. It has no access to your
+  photo library. The photo is scaled down to 400 × 400 pixels and sent to the server.</p>
+  <p>Before anyone sees it, the photo is sent to <strong>OpenAI</strong>, which checks it
+  automatically for nudity, violence and the like. If it passes, it becomes your photo.
+  If it is refused, it is deleted, you go back to a portrait, and whoever moderates Muro
+  is told a photo was refused. If the check doesn’t work at that moment, the photo may
+  appear unchecked, and it can still be reported. Portraits are Muro’s own drawings and
+  don’t go through the filter.</p>
+  <p>To save a card to your photo library, Muro asks only for permission to add photos,
+  not to see yours.</p>
+
+  <h2>Focus and Apple’s Screen Time</h2>
+  <p>Focus uses Apple’s Screen Time and only works after you authorize it on your
+  iPhone. You pick apps from Apple’s own list. iOS gives Muro only opaque codes:
+  <strong>Muro cannot know which apps you chose</strong>. Those codes stay on the iPhone
+  and don’t go to your account; on another iPhone, you pick the apps again.</p>
+  <p>Usage data receives only how many apps and categories were chosen, never which. You
+  can withdraw the authorization at any time in iOS Settings. Muro is not a parental
+  control and doesn’t manage other people’s devices.</p>
+
+  <h2>Usage data (Mixpanel)</h2>
+  <p>To understand what works and where the app fails, Muro sends usage events to
+  <strong>Mixpanel</strong>, which processes them on our behalf. This happens with or
+  without an account. What is sent:</p>
+  <ul>
+    <li>a random <strong>installation number</strong> created by Muro itself. It is not
+    the device identifier, not your Apple ID, and not your account number. Reinstalling
+    the app creates a new one;</li>
+    <li><strong>events</strong> such as: opening the app, importing a book, a page
+    counting as read, starting and ending a reading, meeting the day’s goal, Focus steps,
+    creating or deleting a note, reviewing, sharing, reaching a level, signing in (and
+    how) and deleting the account (with the reason picked from a list);</li>
+    <li><strong>numbers</strong> tied to those events: pages, seconds, streak, totals,
+    how many words a note has, reading mode, text size, the app version and a random
+    number for each book;</li>
+    <li>the iPhone model and iOS version, which Mixpanel’s tool adds on its own.</li>
+  </ul>
+  <p><strong>Never sent:</strong> titles, authors or file names; the content of pages;
+  the text of notes and highlighted passages; collection names; which apps you block;
+  your name, e-mail, @, photo or account number. Location from the IP address is off.</p>
+  <p>These events are not tied to your account. To stop sending them, go to
+  <strong>Settings › Privacy › Usage data</strong> in Muro. When it is off, nothing more
+  is sent, and anything waiting to be sent is thrown away.</p>
+
+  <h2>Notifications</h2>
+  <p>Reminders (time to read, streak, notes to review, and the notice that the free trial
+  ends in 2 days) are scheduled on the iPhone itself. Muro has no notification server.
+  The bell inside the app (who followed you, groups, Muro’s notices) is read from the
+  server while the app is open.</p>
+
+  <h2>Reading aloud, translation and dictionary</h2>
+  <p>In review, you can read a note aloud and Muro follows word by word. For this, iOS
+  asks for the microphone and speech recognition. Online, your speech and the note’s
+  words are processed by Apple; offline, everything stays on the iPhone. Muro doesn’t
+  record or keep the audio. Translating and looking words up use iOS’s own features.</p>
+
+  <h2>Purchases (Muro Premium)</h2>
+  <p>Payment is handled by Apple. Muro never sees your card details. With an account, the
+  app sends the server the receipt Apple signed (which plan, dates, transaction number,
+  and whether it is a real or a test purchase). The server checks Apple’s signature and
+  keeps the receipt in your account, so Premium works on your other iPhones and shows on
+  your profile. The purchase carries your account number, so another account can’t use
+  it.</p>
+
+  <h2>Reports and blocks</h2>
+  <p>When you report someone, we keep who reported, who was reported, the reason, and the
+  person’s name and @ at that moment. The reported person is not told. When you block
+  someone, we keep the block to hide you from each other. Whoever moderates Muro sees
+  reports inside the app.</p>
+
+  <h2>Who processes the data</h2>
+  <p>These services process data on our behalf, only for what is described here:</p>
+  <ul>
+    <li><strong>Supabase:</strong> Muro’s server. Account, profile, sync, files,
+    rankings, groups, bell and reports.</li>
+    <li><strong>Mixpanel:</strong> usage data.</li>
+    <li><strong>OpenAI:</strong> only new profile photos, for the filter.</li>
+    <li><strong>Apple:</strong> Sign in with Apple, App Store purchases, Screen Time and
+    speech recognition.</li>
+    <li><strong>Google:</strong> only if you sign in with Google.</li>
+  </ul>
+  <p>When you share a card, it goes to the app you choose (Instagram, WhatsApp and
+  others), and from then on that app’s policy applies. We may also hand over data if a
+  law or a court order requires it.</p>
+
+  <h2>International transfer</h2>
+  <p>Mixpanel, OpenAI, Google and Apple process data outside Brazil, mainly in the United
+  States. Supabase’s server may also be outside Brazil. By using Muro, your data may be
+  processed in those countries, always only for what is described here.</p>
+
+  <h2>Why we process this data</h2>
+  <ul>
+    <li><strong>To provide what the app offers</strong> (performance of a contract, LGPD
+    art. 7, V): account, sync, profile, rankings, groups and Premium.</li>
+    <li><strong>Legitimate interest</strong> (art. 7, IX): usage data to improve the
+    app, security, anti-cheating rules in the rankings, moderation and the photo filter.</li>
+    <li><strong>To comply with the law</strong> (art. 7, II), when it requires.</li>
+  </ul>
+  <p>We don’t use your data for ads and we make no automated decisions about you. The only
+  automatic check is the photo filter.</p>
+
+  <h2>How long we keep it</h2>
+  <ul>
+    <li>Account data is kept while the account exists.</li>
+    <li>A book or note you delete leaves the account at the next sync. A deleted book’s
+    PDF and cover leave too.</li>
+    <li>Usage events stay in Mixpanel for up to 24 months.</li>
+    <li>A report is kept while the reported account exists.</li>
+    <li>Server backups, if any, may keep data for a short time until they are replaced.</li>
+  </ul>
+
+  <h2>Deleting your account</h2>
+  <p>Go to <strong>Settings › Account › Delete account</strong> in Muro. Muro asks why
+  (you can pick “I’d rather not say”) and asks you to type DELETE. Once you confirm,
+  right away:</p>
+  <ul>
+    <li>removed from the server: the account, e-mail, name, @, photo, profile, numbers,
+    shelf, who you follow and who follows you, blocks, the bell, the groups you are in,
+    everything synced, the Premium receipt, the PDFs and covers in your folder, and the
+    images you uploaded;</li>
+    <li>everything is removed from the iPhone too, and Muro starts over.</li>
+  </ul>
+  <p>Some things remain:</p>
+  <ul>
+    <li>a group you created goes on for the people in it, passed to whoever has been in it
+    longest. If nobody else is in it, it is deleted;</li>
+    <li>reports you made remain, without your name, for moderation;</li>
+    <li>usage events remain in Mixpanel, because they are not tied to the account;</li>
+    <li><strong>deleting the account does not cancel the subscription.</strong> Cancel it
+    in your iPhone’s Settings, under Subscriptions.</li>
+  </ul>
+  <p>You can also disconnect Muro from your Apple or Google account in those accounts’
+  settings. Signing out (Settings › Account › Sign out) deletes nothing: your data stays
+  in the account and comes back when you sign in again.</p>
+
+  <h2>Your rights</h2>
+  <p>The LGPD lets you: confirm whether we process your data; access it; correct it; have
+  it anonymized, blocked or deleted; take it to another service; know who it is shared
+  with; withdraw consent; and object to processing based on legitimate interest. You can
+  also complain to Brazil’s data protection authority (ANPD).</p>
+  <p>You change your name, @ and photo in the app, on your Profile. For anything else,
+  write to <a href="mailto:henrique-lima-neves@hotmail.com">henrique-lima-neves@hotmail.com</a>
+  from your account’s e-mail. We reply within 15 days.</p>
+  <p>Because usage data is not tied to the account, we can’t find it by your name or
+  e-mail. To stop sending it, use Settings › Privacy › Usage data.</p>
+
+  <h2>Children</h2>
+  <p>Muro is not made for children. Don’t create an account if you are under 13. Between
+  13 and 18, use Muro with your parents’ or guardians’ knowledge. If we learn an account
+  belongs to someone under 13, we delete it.</p>
+
+  <h2>Security</h2>
+  <p>Communication with the server uses HTTPS. Each account can read only its own data,
+  and the server checks the rules again whatever the app asks. No system is perfect: if
+  an incident could put you at risk, we will tell you and the ANPD, as the law requires.</p>
+
+  <h2>Changes to this policy</h2>
+  <p>If something changes, we update this page and the date at the top. Important changes
+  to what is collected or shown are also announced inside the app.</p>
+  <p class="soft">The Portuguese version above is the original. If the two ever differ,
+  the Portuguese one prevails.</p>
+
+  </section>
 
   <hr>
   <footer>
-    Dúvidas sobre privacidade: <a href="mailto:henrique-lima-neves@hotmail.com">henrique-lima-neves@hotmail.com</a><br>
-    Muro · <a href="index.html">voltar ao início</a>
+    Dúvidas sobre privacidade · Privacy questions:
+    <a href="mailto:henrique-lima-neves@hotmail.com">henrique-lima-neves@hotmail.com</a><br>
+    Muro · <a href="termos.html">Termos de Uso</a> · <a href="termos.html#en">Terms of Use</a> ·
+    <a href="index.html">voltar ao início</a>
   </footer>
 
 </div>
