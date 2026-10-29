@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Muro — Leia 3 páginas. Depois, o Instagram.</title>
+<meta name="description" content="O Muro bloqueia os apps que te distraem até você ler as páginas do dia.">
+<link rel="icon" href="../assets/muro.svg" type="image/svg+xml">
+<style>
+  /* Version 2, "Um dia": one screen, held in place, that changes as the
+     day goes by — the app's real screens, at their own proportions. */
+  :root{
+    --ground:#0b0b0b; --ink:#eeeeee; --body:#c8c8c8; --muted:#999999; --faint:#6b6b6b; --line:rgba(238,238,238,.1);
+    --serif:Charter,"Bitstream Charter","Iowan Old Style",Georgia,serif;
+    --sans:"Helvetica Neue",Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,monospace;
+    --ph:min(76vh,720px);
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%;background:var(--ground)}
+  body{margin:0;background:var(--ground);color:var(--ink);font:17px/1.6 var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  img,video{max-width:100%;display:block}
+  a{color:inherit}
+  :focus-visible{outline:2px solid var(--ink);outline-offset:3px;border-radius:6px}
+  .wrap{max-width:1160px;margin:0 auto;padding-inline:clamp(20px,4vw,32px)}
+
+  header{position:fixed;z-index:10;left:0;right:0;top:0;padding-top:env(safe-area-inset-top,0px);
+         background:linear-gradient(var(--ground) 40%,rgba(11,11,11,0))}
+  .bar{display:flex;align-items:center;justify-content:space-between;height:72px}
+  .brand{display:flex;align-items:center;gap:10px;text-decoration:none;font-family:var(--serif);font-size:20px}
+  .brand img{width:17px;height:28px}
+  .pill{display:inline-flex;align-items:center;border-radius:999px;background:var(--ink);color:var(--ground);
+        font:500 15px/1 var(--sans);padding:11px 18px;text-decoration:none}
+  .pill.big{font-size:17px;padding:16px 30px}
+  .pill[aria-disabled="true"]{cursor:default}
+
+  .story{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:clamp(40px,7vw,110px)}
+  .steps{min-width:0}
+  .step{min-height:92vh;display:flex;flex-direction:column;justify-content:center;max-width:520px}
+  .step.first{min-height:100vh;max-width:600px}
+  .t{font:13px/1 var(--mono);color:var(--muted);display:flex;align-items:center;gap:10px}
+  .t::after{content:"";width:40px;height:1px;background:#333}
+  .step h2,.step h1{font-family:var(--serif);font-weight:400;letter-spacing:-.02em;margin:18px 0 0;text-wrap:balance}
+  .step h1{font-size:clamp(44px,6.6vw,80px);line-height:1.02;margin-top:0}
+  .step h1 span{color:var(--muted)}
+  .step h2{font-size:clamp(32px,4vw,48px);line-height:1.08}
+  .step p{color:var(--body);font-size:clamp(17px,1.7vw,19px);margin:18px 0 0;max-width:30em}
+  .step p b{color:var(--ink);font-weight:500}
+  .act{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-top:34px}
+  .act small{font:12px var(--mono);color:var(--faint)}
+  .scroll-hint{margin-top:56px;font:12px var(--mono);color:var(--faint)}
+
+  /* the held screen */
+  .device{position:sticky;top:calc(50vh - var(--ph) / 2);height:var(--ph);width:calc(var(--ph) * 1320 / 2868);align-self:start;margin-top:calc(50vh - var(--ph) / 2)}
+  .screen{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:12.4% / 5.75%;
+          opacity:0;transform:scale(.985);transition:opacity .5s ease,transform .5s ease;box-shadow:0 50px 100px -40px rgba(0,0,0,.95)}
+  .screen.on{opacity:1;transform:none}
+  .tick{position:absolute;right:-28px;top:0;bottom:0;display:flex;flex-direction:column;justify-content:center;gap:10px}
+  .tick i{width:4px;height:4px;border-radius:50%;background:#333;transition:background .3s,transform .3s}
+  .tick i.on{background:var(--ink);transform:scale(1.4)}
+  .m-shot{display:none}
+
+  .end{padding-block:clamp(80px,12vw,140px);text-align:center;border-top:1px solid var(--line)}
+  .end h2{font-family:var(--serif);font-weight:400;font-size:clamp(36px,5vw,60px);line-height:1.05;letter-spacing:-.02em;margin:0}
+  .end p{color:var(--muted);margin:16px auto 0;max-width:34em}
+  .end .act{justify-content:center}
+  .price{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-top:40px}
+  .price span{font:13px/1 var(--mono);color:var(--muted);border:1px solid #2a2a2a;border-radius:999px;padding:9px 14px}
+  footer{border-top:1px solid var(--line)}
+  .foot{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;padding-block:28px calc(env(safe-area-inset-bottom,0px) + 40px);font-size:14px;color:var(--faint)}
+  .foot nav{display:flex;gap:18px}
+  .foot a{color:var(--muted);text-decoration:none}
+
+  @media (max-width:860px){
+    .story{grid-template-columns:1fr}
+    .device{display:none}
+    .step,.step.first{min-height:0;padding-block:72px 8px;max-width:none}
+    .step.first{padding-top:120px}
+    .m-shot{display:block;width:min(300px,78vw);margin:32px auto 0;border-radius:12.4% / 5.75%;box-shadow:0 40px 80px -30px rgba(0,0,0,.95)}
+    .scroll-hint{display:none}
+  }
+  @media (prefers-reduced-motion:reduce){ .screen{transition:none} }
+</style>
+</head>
+<body>
+<header><div class="wrap bar">
+  <a class="brand" href="#"><img src="../assets/muro.svg" alt="" width="17" height="28"><span>Muro</span></a>
+  <a class="pill" data-store>Em breve na App Store</a>
+</div></header>
+
+<main class="wrap story">
+  <div class="steps">
+    <section class="step first" data-s="0">
+      <h1>Leia 3 páginas.<br><span>Depois, o Instagram.</span></h1>
+      <p>O Muro <b>bloqueia os apps que te distraem até você ler as páginas do dia</b>. Leu, liberou.</p>
+      <div class="act"><a class="pill big" data-store>Em breve na App Store</a><small>para iPhone · grátis</small></div>
+      <img class="m-shot" src="../assets/v2/02-foco.webp" alt="" width="660" height="1434">
+      <span class="scroll-hint">↓ um dia com o Muro</span>
+    </section>
+    <section class="step" data-s="1">
+      <span class="t">07:30</span>
+      <h2>Escolha o que te distrai.</h2>
+      <p>Instagram, TikTok, YouTube: os apps que você escolher na lista do iPhone ficam guardados. O Muro nunca sabe quais são.</p>
+      <img class="m-shot" src="../assets/v2/02c-foco-ligado.webp" alt="" width="660" height="1434" loading="lazy">
+    </section>
+    <section class="step" data-s="2">
+      <span class="t">12:10</span>
+      <h2>Precisa de um antes? Peça uma pausa.</h2>
+      <p>15 minutos, 30 ou 1 hora. Quando a pausa acaba, eles voltam a esperar.</p>
+      <img class="m-shot" src="../assets/v2/02b-foco-bloqueado.webp" alt="" width="660" height="1434" loading="lazy">
+    </section>
+    <section class="step" data-s="3">
+      <span class="t">21:40</span>
+      <h2>Leia. Cada página conta.</h2>
+      <p>Uma página conta depois do tempo de ser lida. Folhear não vale. O Foco enche a cada uma: 1, 2, 3.</p>
+      <img class="m-shot" src="../assets/v2/01-leitura.webp" alt="" width="660" height="1434" loading="lazy">
+    </section>
+    <section class="step" data-s="4">
+      <span class="t">21:52</span>
+      <h2>Bateu a meta. Os apps voltam.</h2>
+      <p>E a ofensiva cresce: basta uma página por dia para ela continuar acesa.</p>
+      <img class="m-shot" src="../assets/v2/05b-ofensiva.webp" alt="" width="660" height="1434" loading="lazy">
+    </section>
+    <section class="step" data-s="5">
+      <span class="t">21:55</span>
+      <h2>Grife o que importa.</h2>
+      <p>Cinco cores e uma nota em cada trecho. Junte tudo em coleções.</p>
+      <img class="m-shot" src="../assets/v2/12b-texto-grifo-menu.webp" alt="" width="660" height="1434" loading="lazy">
+    </section>
+    <section class="step" data-s="6">
+      <span class="t">amanhã, 08:00</span>
+      <h2>Lembre do que leu.</h2>
+      <p>Algumas notas voltam numa revisão de um minuto.</p>
+      <img class="m-shot" src="../assets/v2/04-revisao.webp" alt="" width="660" height="1434" loading="lazy">
+    </section>
+    <section class="step" data-s="7">
+      <span class="t">domingo</span>
+      <h2>Veja quem leu mais.</h2>
+      <p>Cada página vale XP na Liga do mês e nos grupos com os amigos.</p>
+      <img class="m-shot" src="../assets/v2/06-liga.webp" alt="" width="660" height="1434" loading="lazy">
+    </section>
+  </div>
+
+  <div class="device" aria-hidden="true">
+    <img class="screen on" src="../assets/v2/02-foco.webp" alt="" width="660" height="1434">
+    <img class="screen" src="../assets/v2/02c-foco-ligado.webp" alt="" width="660" height="1434">
+    <img class="screen" src="../assets/v2/02b-foco-bloqueado.webp" alt="" width="660" height="1434">
+    <video class="screen" src="../assets/home.mp4" poster="../assets/mockup.png" muted loop playsinline preload="metadata"></video>
+    <img class="screen" src="../assets/v2/05b-ofensiva.webp" alt="" width="660" height="1434">
+    <img class="screen" src="../assets/v2/12b-texto-grifo-menu.webp" alt="" width="660" height="1434">
+    <img class="screen" src="../assets/v2/04-revisao.webp" alt="" width="660" height="1434">
+    <img class="screen" src="../assets/v2/06-liga.webp" alt="" width="660" height="1434">
+    <div class="tick"><i class="on"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+  </div>
+</main>
+
+<section class="end">
+  <div class="wrap">
+    <h2>Uma página hoje.<br>Outra amanhã.</h2>
+    <p>Grátis para baixar. O Premium traz o Foco, notas sem limite e grupos, com 7 dias grátis.</p>
+    <div class="act"><a class="pill big" data-store>Em breve na App Store</a></div>
+    <div class="price"><span>grátis · ofensiva, 50 notas, revisão e Liga</span><span>premium · R$ 24,90/mês ou R$ 149,90/ano</span></div>
+  </div>
+</section>
+
+<footer><div class="wrap foot">
+  <span>Muro · © 2026</span>
+  <nav><a href="../privacidade.html">Privacidade</a><a href="../termos.html">Termos</a><a href="mailto:henrique-lima-neves@hotmail.com">Contato</a></nav>
+</div></footer>
+
+<script>
+  const APP_STORE = "";
+  document.querySelectorAll('[data-store]').forEach(a => {
+    if (APP_STORE) { a.href = APP_STORE; a.textContent = 'Baixar na App Store'; }
+    else { a.setAttribute('aria-disabled', 'true'); a.setAttribute('role', 'link'); }
+  });
+  // The screen follows the step in the middle of the window.
+  const screens = [...document.querySelectorAll('.screen')], ticks = [...document.querySelectorAll('.tick i')];
+  const video = document.querySelector('video.screen');
+  const show = k => {
+    screens.forEach((s, i) => s.classList.toggle('on', i === k));
+    ticks.forEach((t, i) => t.classList.toggle('on', i === k));
+    if (video) { if (screens[k] === video) { video.currentTime = 0; video.play().catch(() => {}); } else video.pause(); }
+  };
+  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) show(+e.target.dataset.s); }),
+    { rootMargin: '-45% 0px -45% 0px' });
+  document.querySelectorAll('.step').forEach(el => io.observe(el));
+</script>
+</body>
+</html>
