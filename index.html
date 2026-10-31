@@ -67,18 +67,6 @@
   .shot.on{cursor:default}
   .shot img,.shot video{width:100%;height:100%;object-fit:cover;pointer-events:none;-webkit-user-drag:none}
 
-  /* the arrows: in the gaps beside the phone in front, once the mouse is over it */
-  .arrow{all:unset;position:absolute;top:50%;left:50%;z-index:20;width:44px;height:44px;margin:-22px 0 0 -22px;
-         display:grid;place-items:center;border-radius:50%;background:#28282b;box-shadow:inset 0 0 0 1px #3c3c3c;
-         color:var(--ink);cursor:pointer;opacity:0;pointer-events:none;transition:opacity .25s ease,background .2s ease}
-  .arrow svg{width:24px;height:24px;display:block}
-  .arrow.prev{transform:translateX(calc(var(--w) * -.5 - var(--w) * var(--g) / 2))}
-  .arrow.prev svg{transform:scaleX(-1)}
-  .arrow.next{transform:translateX(calc(var(--w) * .5 + var(--w) * var(--g) / 2))}
-  .arrow:hover{background:#333336}
-  .carousel:hover .arrow,.arrow:focus-visible{opacity:1;pointer-events:auto}
-  .arrow:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
-  @media (hover:none){ .arrow{display:none} }
   @media (max-width:600px){ :root{--g:.05} }
 
   /* a few words for the screen in front, then the dots */
@@ -87,9 +75,9 @@
   .cap > div.on{opacity:1;transform:none;position:relative}
   .cap h2{font-family:var(--serif);font-weight:400;font-size:22px;line-height:1.3;margin:0}
   .cap p{margin:6px 0 0;color:var(--muted);font-size:15px}
-  .dots{display:flex;justify-content:center;gap:2px;margin-top:14px}
+  .dots{display:flex;width:max-content;margin:14px auto 0;padding:6px 8px;border-radius:999px;background:#1e1e1e}
   .dots button{all:unset;cursor:pointer;width:22px;height:22px;display:grid;place-items:center;border-radius:50%}
-  .dots button::before{content:"";width:6px;height:6px;border-radius:50%;background:#444;transition:background .3s}
+  .dots button::before{content:"";width:9px;height:9px;border-radius:50%;background:#5c5c5c;transition:background .3s}
   .dots button[aria-current="true"]::before{background:var(--ink)}
   .dots button:focus-visible{outline:2px solid var(--ink)}
 
@@ -142,8 +130,6 @@
       <figure class="shot"><img src="assets/telas/12b-texto-grifo-menu.webp" alt="Um trecho grifado e o menu das cores" width="750" height="1630"></figure>
       <figure class="shot"><img src="assets/telas/03-notas.webp" alt="As notas e a revisão de hoje" width="750" height="1630"></figure>
       <figure class="shot"><img src="assets/telas/06-liga.webp" alt="A Liga do mês" width="750" height="1630"></figure>
-      <button class="arrow prev" type="button" data-step="-1" aria-label="Tela anterior"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9.5 5.5L16 12l-6.5 6.5" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-      <button class="arrow next" type="button" data-step="1" aria-label="Próxima tela"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9.5 5.5L16 12l-6.5 6.5" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
     </div>
 
     <div class="cap" aria-live="polite">
@@ -188,14 +174,9 @@
   const root = document.documentElement;
 
   // Language: Portuguese, unless the visitor chose English here or came by #en.
-  const setLang = l => {
-    root.lang = l; try { localStorage.setItem('muro.lang', l); } catch (e) {}
-    const en = l === 'en';
-    document.querySelector('.arrow.prev').setAttribute('aria-label', en ? 'Previous screen' : 'Tela anterior');
-    document.querySelector('.arrow.next').setAttribute('aria-label', en ? 'Next screen' : 'Próxima tela');
-  };
+  const setLang = l => { root.lang = l; try { localStorage.setItem('muro.lang', l); } catch (e) {} };
   let saved = null; try { saved = localStorage.getItem('muro.lang'); } catch (e) {}
-  setLang(location.hash === '#en' ? 'en' : saved || 'pt-BR');
+  root.lang = location.hash === '#en' ? 'en' : saved || 'pt-BR';
   document.querySelector('[data-lang]').addEventListener('click', () => setLang(root.lang === 'en' ? 'pt-BR' : 'en'));
 
   document.querySelectorAll('[data-store]').forEach(a => {
@@ -237,11 +218,9 @@
       [...dots.children].forEach((b, i) => b.setAttribute('aria-current', i === cur));
     };
     const go = i => { cur = (i + n) % n; lay(); };
-    const restart = () => { clearInterval(timer); if (!reduce && !paused) timer = setInterval(() => { if (!document.hidden) go(cur + 1); }, 4000); };
-    document.querySelectorAll('.arrow').forEach(b => b.addEventListener('click', () => { go(cur + +b.dataset.step); restart(); }));
-    const car = document.querySelector('.carousel');
-    car.addEventListener('mouseenter', () => { paused = true; restart(); });
-    car.addEventListener('mouseleave', () => { paused = false; restart(); });
+    const restart = () => { clearInterval(timer); if (!reduce && !paused) timer = setInterval(() => { if (!document.hidden) go(cur + 1); }, 5500); };
+    dots.addEventListener('mouseenter', () => { paused = true; restart(); });
+    dots.addEventListener('mouseleave', () => { paused = false; restart(); });
     addEventListener('keydown', e => { if (e.key === 'ArrowRight') { go(cur + 1); restart(); } if (e.key === 'ArrowLeft') { go(cur - 1); restart(); } });
     let x0 = null; const track = document.querySelector('.track');
     track.addEventListener('pointerdown', e => x0 = e.clientX);
