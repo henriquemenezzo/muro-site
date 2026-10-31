@@ -18,7 +18,6 @@
     --rule:rgba(238,238,238,.12);
     --serif:Charter,"Bitstream Charter","Iowan Old Style",Georgia,serif;
     --sans:"Helvetica Neue",Helvetica,Arial,sans-serif;
-    --w:min(340px,74vw);          /* the phone in the middle, as it always was */
   }
   *{box-sizing:border-box}
   html{-webkit-text-size-adjust:100%}
@@ -48,32 +47,6 @@
   .store[aria-disabled="true"]{cursor:default}
   .store[aria-disabled="true"]:hover{opacity:1}
 
-  /* ── The screens, one at a time ───────────────────────────────────────
-     The screens alone, with the faintest hairline for the hardware. Its two
-     neighbours wait behind it, smaller and faint. */
-  .carousel{position:relative;margin:72px auto 0;width:100%}
-  .track{position:relative;height:calc(var(--w) * 812 / 375);touch-action:pan-y;user-select:none;-webkit-user-select:none}
-  .shot{position:absolute;left:50%;top:0;width:var(--w);margin:0 0 0 calc(var(--w) / -2);aspect-ratio:375/812;
-        border-radius:30px;overflow:hidden;background:#000;cursor:pointer;
-        box-shadow:0 0 0 1px rgba(238,238,238,.07), 0 40px 80px rgba(0,0,0,.6);
-        transform:translateX(calc(var(--w) * var(--a,0) * .66)) scale(var(--s,1));
-        transition:transform 1.2s cubic-bezier(.45,0,.15,1),opacity 1.2s cubic-bezier(.45,0,.15,1),z-index 1.2s linear}
-  .shot.on{cursor:default}
-  .shot img,.shot video{width:100%;height:100%;object-fit:cover;pointer-events:none;-webkit-user-drag:none}
-
-
-  /* a few words for the screen in front, then the dots */
-  .cap{position:relative;text-align:center;margin:36px auto 0;max-width:420px;min-height:62px}
-  .cap > div{position:absolute;inset:0;opacity:0;filter:blur(6px);transform:translateY(6px);transition:opacity .8s ease,filter .8s ease,transform .8s ease;pointer-events:none}
-  .cap > div.on{opacity:1;filter:none;transform:none;position:relative}
-  .cap h2{font-family:var(--serif);font-weight:400;font-size:22px;line-height:1.3;margin:0}
-  .cap p{margin:6px 0 0;color:var(--muted);font-size:15px}
-  .dots{display:flex;width:max-content;margin:14px auto 0;padding:6px 8px;border-radius:999px;background:#181818}
-  .dots button{all:unset;cursor:pointer;width:22px;height:22px;display:grid;place-items:center;border-radius:50%}
-  .dots button::before{content:"";width:9px;height:9px;border-radius:50%;background:#5c5c5c;transition:background .8s ease}
-  .dots button[aria-current="true"]::before{background:var(--ink)}
-  .dots button:focus-visible{outline:2px solid var(--ink)}
-
   .note{margin:72px auto 0;max-width:520px;text-align:center;color:var(--muted);font-size:14px}
   .note a{color:var(--muted)}
   .note a:hover{color:var(--ink)}
@@ -88,37 +61,18 @@
   .lang:hover{color:var(--ink)}
   .lang:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
 
-  /* Other ways of showing the screens, chosen in versoes/ with ?m= */
+  /* The screens, all three in view, each showing itself; on a phone they slide */
   .row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:40px;width:min(1080px,calc(100vw - 48px));margin:72px 0 0 50%;transform:translateX(-50%)}
   .item{text-align:center;min-width:0}
   .screen{display:block;width:100%;aspect-ratio:375/812;border-radius:30px;overflow:hidden;background:#000;box-shadow:0 0 0 1px rgba(238,238,238,.07),0 40px 80px rgba(0,0,0,.6)}
-  .screen img,.screen video{width:100%;height:100%;object-fit:cover}
+  .screen video,.screen img{width:100%;height:100%;object-fit:cover}
   .item h2{font-family:var(--serif);font-weight:400;font-size:22px;line-height:1.3;margin:28px 0 0}
   .item p{margin:6px 0 0;color:var(--muted);font-size:15px;text-wrap:balance}
-  .blocks{display:grid;gap:112px;margin:96px auto 0;justify-items:center}
-  .blocks .item{width:min(340px,74vw)}
-  .blocks h2{font-size:28px;margin:36px 0 0}
-  .pin{display:grid;grid-template-columns:minmax(0,1fr) min(340px,74vw);gap:72px;width:min(920px,calc(100vw - 48px));margin:72px 0 0 50%;transform:translateX(-50%)}
-  .steps{display:grid}
-  .step{min-height:78vh;display:flex;flex-direction:column;justify-content:center;opacity:.3;transition:opacity .7s ease}
-  .step.on{opacity:1}
-  .step h2{font-family:var(--serif);font-weight:400;font-size:32px;line-height:1.2;margin:0}
-  .step p{margin:12px 0 0;color:var(--muted);font-size:17px;max-width:360px}
-  .stick{position:sticky;top:max(24px,calc(50vh - var(--w) * 406 / 375));align-self:start}
-  .stick .screen{position:relative}
-  .stick .screen > *{position:absolute;inset:0;opacity:0;transition:opacity .8s ease}
-  .stick .screen > .on{opacity:1}
   @media (max-width:760px){
-    .row{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;width:100vw;padding:0 calc(50vw - 37vw);scrollbar-width:none}
+    .row{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;width:100vw;padding:0 13vw;scrollbar-width:none}
     .row::-webkit-scrollbar{display:none}
     .row .item{flex:0 0 74vw;scroll-snap-align:center}
-    .pin{grid-template-columns:1fr;gap:0}
-    .stick{display:none}
-    .step{min-height:0;opacity:1;margin-bottom:96px;text-align:center}
-    .step p{margin-inline:auto}
-    .step .screen{width:min(340px,74vw);margin:0 auto 28px}
   }
-  @media (min-width:761px){ .step .screen{display:none} }
 
   /* The way in. The mark opens as it does on the app's splash: a closed book
      whose pages fan out from the spine, inside first. The words then come up
@@ -138,7 +92,6 @@
   /* two languages on one page: the other one is simply not shown */
   html[lang="pt-BR"] [lang="en"],html[lang="en"] [lang="pt-BR"]{display:none}
 
-  @media (prefers-reduced-motion:reduce){ .shot,.cap > div{transition:none} }
 </style>
 </head>
 <body>
@@ -159,33 +112,16 @@
     <a class="store" data-store><span lang="pt-BR">Em breve na App Store</span><span lang="en">Coming soon to the App Store</span></a>
   </section>
 
-  <section class="carousel" aria-roledescription="carrossel" aria-label="Telas do Muro">
-    <div class="track">
-      <figure class="shot">
-        <video src="assets/virar-pagina.mp4" poster="assets/telas/virar-pagina.webp" width="750" height="1630"
-               autoplay muted loop playsinline preload="metadata"
-               aria-label="Uma página vira devagar, como papel."></video>
-      </figure>
-      <figure class="shot">
-        <video src="assets/grifar.mp4" poster="assets/telas/grifar.webp" width="750" height="1630"
-               autoplay muted loop playsinline preload="metadata"
-               aria-label="Um trecho é selecionado e grifado em amarelo."></video>
-      </figure>
-      <figure class="shot"><img src="assets/telas/02-foco.webp" alt="Foco: Instagram e TikTok guardados até você ler 3 páginas" width="750" height="1630"></figure>
-      <figure class="shot"><img src="assets/telas/05b-ofensiva.webp" alt="A ofensiva: 10 dias seguidos lendo e o calendário do mês" width="750" height="1630"></figure>
-    </div>
-
-    <div class="cap" aria-live="polite">
-      <div><h2 lang="pt-BR">Parece papel</h2><h2 lang="en">Feels like paper</h2>
-        <p lang="pt-BR">A página vira como a de um livro, no fundo claro ou escuro.</p><p lang="en">Pages turn like a real book, on a light or dark page.</p></div>
-      <div><h2 lang="pt-BR">Grife e anote o que importa</h2><h2 lang="en">Highlight what matters</h2>
-        <p lang="pt-BR">Cinco cores e uma nota em cada trecho.</p><p lang="en">Five colours and a note on any passage.</p></div>
-      <div><h2 lang="pt-BR">Seus apps esperam você ler</h2><h2 lang="en">Your apps wait while you read</h2>
-        <p lang="pt-BR">Instagram, TikTok e o que mais distrai ficam bloqueados até a meta.</p><p lang="en">Instagram, TikTok and anything else stay blocked until you hit your goal.</p></div>
-      <div><h2 lang="pt-BR">Uma página por dia mantém a ofensiva</h2><h2 lang="en">One page a day keeps your streak</h2>
-        <p lang="pt-BR">O calendário guarda cada dia lido.</p><p lang="en">The calendar keeps every day you read.</p></div>
-    </div>
-    <div class="dots"></div>
+  <section class="row" aria-label="Telas do Muro">
+    <div class="item"><span class="screen"><video src="assets/leia.mp4" poster="assets/telas/leia.webp" width="750" height="1630" autoplay muted loop playsinline preload="metadata" aria-label="A folha vira, a meta do Foco se completa e a leitura do dia fica feita."></video></span>
+      <h2 lang="pt-BR">Leia</h2><h2 lang="en">Read</h2>
+      <p lang="pt-BR">Seus apps esperam as páginas do dia.</p><p lang="en">Your apps wait for the day’s pages.</p></div>
+    <div class="item"><span class="screen"><video src="assets/grifar.mp4" poster="assets/telas/grifar.webp" width="750" height="1630" autoplay muted loop playsinline preload="metadata" aria-label="Um trecho é selecionado e grifado em amarelo."></video></span>
+      <h2 lang="pt-BR">Pense</h2><h2 lang="en">Think</h2>
+      <p lang="pt-BR">Escreva o que aquele trecho te fez pensar.</p><p lang="en">Write what a passage made you think.</p></div>
+    <div class="item"><span class="screen"><img src="assets/telas/03-notas.webp" alt="As notas e a revisão de hoje" width="750" height="1630"></span>
+      <h2 lang="pt-BR">Lembre</h2><h2 lang="en">Remember</h2>
+      <p lang="pt-BR">Todo dia, suas notas voltam para você não esquecer.</p><p lang="en">Every day, your notes come back so you don’t forget.</p></div>
   </section>
 
   <p class="note"><span lang="pt-BR">Sem propaganda. O que você lê e escreve não é vendido para ninguém.
@@ -205,42 +141,6 @@
 
 </div>
 <script>
-  // Which way of showing the screens: the carousel, unless ?m= asks for another.
-  const mode = new URLSearchParams(location.search).get('m');
-  if (mode === 'lado' || mode === 'blocos' || mode === 'fixo') {
-    const items = [
-      { v: 'assets/virar-pagina.mp4', i: 'assets/telas/virar-pagina.webp', t: ['Parece papel', 'Feels like paper'],
-        p: ['A página vira como a de um livro, no fundo claro ou escuro.', 'Pages turn like a real book, on a light or dark page.'] },
-      { v: 'assets/grifar.mp4', i: 'assets/telas/grifar.webp', t: ['Grife e anote o que importa', 'Highlight what matters'],
-        p: ['Cinco cores e uma nota em cada trecho.', 'Five colours and a note on any passage.'] },
-      { i: 'assets/telas/02-foco.webp', t: ['Seus apps esperam você ler', 'Your apps wait while you read'],
-        p: ['Instagram, TikTok e o que mais distrai ficam bloqueados até a meta.', 'Instagram, TikTok and anything else stay blocked until you hit your goal.'] },
-      { i: 'assets/telas/05b-ofensiva.webp', t: ['Uma página por dia mantém a ofensiva', 'One page a day keeps your streak'],
-        p: ['O calendário guarda cada dia lido.', 'The calendar keeps every day you read.'] },
-    ];
-    const media = x => x.v
-      ? `<video src="${x.v}" poster="${x.i}" autoplay muted loop playsinline preload="metadata"></video>`
-      : `<img src="${x.i}" alt="" width="750" height="1630">`;
-    const both = (tag, [pt, en]) => `<${tag} lang="pt-BR">${pt}</${tag}><${tag} lang="en">${en}</${tag}>`;
-    const item = x => `<div class="item"><span class="screen">${media(x)}</span>${both('h2', x.t)}${both('p', x.p)}</div>`;
-    const place = document.querySelector('.carousel');
-    if (mode === 'lado') place.innerHTML = `<div class="row">${items.slice(0, 3).map(item).join('')}</div>`;
-    if (mode === 'blocos') place.innerHTML = `<div class="blocks">${items.map(item).join('')}</div>`;
-    if (mode === 'fixo') {
-      place.innerHTML = `<div class="pin"><div class="steps">${items.map((x, i) =>
-        `<div class="step${i ? '' : ' on'}"><span class="screen">${media(x)}</span>${both('h2', x.t)}${both('p', x.p)}</div>`).join('')}</div>
-        <div class="stick"><span class="screen">${items.map((x, i) => media(x).replace(/^<(\w+)/, `<$1 class="${i ? '' : 'on'}"`)).join('')}</span></div></div>`;
-      const steps = [...place.querySelectorAll('.step')], shown = [...place.querySelectorAll('.stick .screen > *')];
-      const io = new IntersectionObserver(es => es.forEach(e => {
-        if (!e.isIntersecting) return;
-        const n = steps.indexOf(e.target);
-        steps.forEach((s, i) => s.classList.toggle('on', i === n));
-        shown.forEach((s, i) => s.classList.toggle('on', i === n));
-      }), { rootMargin: '-45% 0px -45% 0px' });
-      steps.forEach(s => io.observe(s));
-    }
-  }
-
   // The way in: each word of the headline and the line under it on its own beat.
   if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
     const words = (el, from, step) => {
@@ -260,7 +160,7 @@
     };
     words(document.querySelector('h1'), .95, .09);
     words(document.querySelector('.lede'), 1.6, .035);
-    [['.store', 2.2], ['.carousel', 2.4]].forEach(([q, d]) => {
+    [['.store', 2.2], ['.row', 2.4]].forEach(([q, d]) => {
       const e = document.querySelector(q); e.classList.add('in'); e.style.setProperty('--d', `${d}s`);
     });
     document.documentElement.classList.add('moves');
@@ -285,54 +185,6 @@
       a.querySelector('[lang="en"]').textContent = 'Download on the App Store';
     } else { a.setAttribute('aria-disabled', 'true'); a.setAttribute('role', 'link'); }
   });
-
-  // The carousel: each screen sits at its distance from the one in front,
-  // wrapping round; only the two neighbours show, behind it.
-  (() => {
-    if (!document.querySelector('.shot')) return;
-    const track = document.querySelector('.track'), caps = [...document.querySelectorAll('.cap > div')];
-    const shots = [...document.querySelectorAll('.shot')];
-    const dots = document.querySelector('.dots'), n = shots.length;
-    const names = ['Página', 'Grifo', 'Foco', 'Ofensiva'];
-    let cur = 0, timer = null, paused = false;
-    shots.forEach((s, i) => {
-      const b = document.createElement('button'); b.type = 'button'; b.setAttribute('aria-label', `${names[i]}, ${i + 1} de ${n}`);
-      b.addEventListener('click', () => { go(i); restart(); }); dots.appendChild(b);
-      s.addEventListener('click', () => { if (i !== cur) { go(i); restart(); } });
-    });
-    const off = i => { let o = ((i - cur) % n + n) % n; return o > n / 2 ? o - n : o; };
-    const lay = () => {
-      shots.forEach((s, i) => {
-        const o = off(i), was = s.dataset.o === undefined ? o : +s.dataset.o;
-        s.dataset.o = o;
-        const far = Math.abs(o);
-        // A screen going round from one side to the other fades out where it
-        // is, and only then moves across, unseen.
-        clearTimeout(s.side);
-        const side = () => s.style.setProperty('--a', Math.sign(o));
-        if (o * was < 0) {
-          s.side = setTimeout(() => { s.style.transition = 'none'; side(); requestAnimationFrame(() => requestAnimationFrame(() => s.style.transition = '')); }, 1250);
-        } else side();
-        s.style.setProperty('--s', far ? .84 : 1);
-        s.style.zIndex = 10 - far;
-        s.style.opacity = far > 1 ? 0 : far ? .2 : 1;
-        s.classList.toggle('on', o === 0);
-        s.setAttribute('aria-hidden', o !== 0);
-      });
-      caps.forEach((c, i) => c.classList.toggle('on', i === cur));
-      [...dots.children].forEach((b, i) => b.setAttribute('aria-current', i === cur));
-    };
-    const go = i => { cur = (i + n) % n; lay(); };
-    const restart = () => { clearInterval(timer); if (!reduce && !paused) timer = setInterval(() => { if (!document.hidden) go(cur + 1); }, 5500); };
-    dots.addEventListener('mouseenter', () => { paused = true; restart(); });
-    dots.addEventListener('mouseleave', () => { paused = false; restart(); });
-    addEventListener('keydown', e => { if (e.key === 'ArrowRight') { go(cur + 1); restart(); } if (e.key === 'ArrowLeft') { go(cur - 1); restart(); } });
-    let x0 = null;
-    track.addEventListener('pointerdown', e => x0 = e.clientX);
-    track.addEventListener('pointerup', e => { if (x0 === null) return; const dx = e.clientX - x0; x0 = null; if (Math.abs(dx) > 40) { go(cur + (dx < 0 ? 1 : -1)); restart(); } });
-    if (reduce) shots.forEach(s => s.style.transition = 'none');
-    lay(); restart();
-  })();
 
   if (reduce) document.querySelectorAll('video').forEach(v => { v.removeAttribute('autoplay'); v.pause(); });
 </script>
