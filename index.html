@@ -223,15 +223,23 @@
   // The carousel: each screen sits at its distance from the one in front,
   // wrapping round; the others stand in a row to each side of it.
   (() => {
-    const shots = [...document.querySelectorAll('.shot')], caps = [...document.querySelectorAll('.cap > div')];
+    // Four screens would leave a gap at one side, so the row repeats them until
+    // it reaches both edges of the window. The dots still count the four.
+    const track = document.querySelector('.track'), caps = [...document.querySelectorAll('.cap > div')];
+    const real = [...document.querySelectorAll('.shot')], m = real.length, shots = [...real];
+    while (shots.length < 12) real.forEach(s => {
+      const c = s.cloneNode(true);
+      c.querySelectorAll('video').forEach(v => { v.muted = true; v.removeAttribute('aria-label'); });
+      track.append(c); shots.push(c);
+    });
     const dots = document.querySelector('.dots'), n = shots.length;
     const names = ['Página', 'Grifo', 'Foco', 'Ofensiva'];
     let cur = 0, timer = null, paused = false;
-    shots.forEach((s, i) => {
-      const b = document.createElement('button'); b.type = 'button'; b.setAttribute('aria-label', `${names[i]}, ${i + 1} de ${n}`);
-      b.addEventListener('click', () => { go(i); restart(); }); dots.appendChild(b);
-      s.addEventListener('click', () => { if (i !== cur) { go(i); restart(); } });
+    real.forEach((s, i) => {
+      const b = document.createElement('button'); b.type = 'button'; b.setAttribute('aria-label', `${names[i]}, ${i + 1} de ${m}`);
+      b.addEventListener('click', () => { go(cur + ((i - cur % m + m) % m)); restart(); }); dots.appendChild(b);
     });
+    shots.forEach((s, i) => s.addEventListener('click', () => { if (i !== cur) { go(i); restart(); } }));
     const off = i => { let o = ((i - cur) % n + n) % n; return o > n / 2 ? o - n : o; };
     const lay = () => {
       shots.forEach((s, i) => {
@@ -247,15 +255,15 @@
         s.classList.toggle('on', o === 0);
         s.setAttribute('aria-hidden', o !== 0);
       });
-      caps.forEach((c, i) => c.classList.toggle('on', i === cur));
-      [...dots.children].forEach((b, i) => b.setAttribute('aria-current', i === cur));
+      caps.forEach((c, i) => c.classList.toggle('on', i === cur % m));
+      [...dots.children].forEach((b, i) => b.setAttribute('aria-current', i === cur % m));
     };
     const go = i => { cur = (i + n) % n; lay(); };
     const restart = () => { clearInterval(timer); if (!reduce && !paused) timer = setInterval(() => { if (!document.hidden) go(cur + 1); }, 5500); };
     dots.addEventListener('mouseenter', () => { paused = true; restart(); });
     dots.addEventListener('mouseleave', () => { paused = false; restart(); });
     addEventListener('keydown', e => { if (e.key === 'ArrowRight') { go(cur + 1); restart(); } if (e.key === 'ArrowLeft') { go(cur - 1); restart(); } });
-    let x0 = null; const track = document.querySelector('.track');
+    let x0 = null;
     track.addEventListener('pointerdown', e => x0 = e.clientX);
     track.addEventListener('pointerup', e => { if (x0 === null) return; const dx = e.clientX - x0; x0 = null; if (Math.abs(dx) > 40) { go(cur + (dx < 0 ? 1 : -1)); restart(); } });
     if (reduce) shots.forEach(s => s.style.transition = 'none');
