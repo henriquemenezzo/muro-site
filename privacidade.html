@@ -7,7 +7,7 @@
 <meta name="description" content="O que o Muro guarda, o que mostra aos outros leitores e o que nunca sai do seu iPhone.">
 <style>
   :root{
-    --ground:#101010;      /* mesmo fundo da landing e do app */
+    --ground:#0a0a0a;      /* mesmo fundo da landing e do app */
     --ink:#eeeeee;
     --muted:#9b9b9b;
     --rule:rgba(238,238,238,.12);
@@ -22,10 +22,15 @@
     -webkit-font-smoothing:antialiased;
   }
   .wrap{max-width:680px;margin:0 auto;padding:80px 24px 120px}
-  .top{display:flex;justify-content:space-between;align-items:baseline;gap:16px}
-  .mark{font-family:var(--serif);font-size:18px;letter-spacing:.02em;color:var(--ink);text-decoration:none}
-  .lang{color:var(--muted);font-size:14px;text-decoration:none}
+  .top{display:flex;justify-content:space-between;align-items:center;gap:16px;font-size:14px}
+  .home{display:inline-flex;align-items:center;gap:8px;color:var(--ink);text-decoration:none}
+  .home svg{width:20px;height:20px;margin-left:-6px}
+  .tabs a{color:var(--muted);text-decoration:none}
+  .tabs a:hover{color:var(--ink)}
+  .lang{all:unset;cursor:pointer;color:var(--muted)}
   .lang:hover{color:var(--ink)}
+  .lang:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+  html[lang="pt-BR"] [lang="en"],html[lang="en"] [lang="pt-BR"]{display:none}
   section{scroll-margin-top:24px}
   h1{font-family:var(--serif);font-size:44px;line-height:1.1;font-weight:400;margin:56px 0 12px;letter-spacing:-.01em}
   h1 em{font-style:italic}
@@ -39,19 +44,19 @@
   strong{font-weight:600}
   hr{border:0;border-top:1px solid var(--rule);margin:64px 0}
   a{color:var(--ink)}
-  footer{margin-top:72px;color:var(--muted);font-size:14px}
+  footer{margin-top:72px;display:flex;justify-content:space-between;gap:16px;color:var(--muted);font-size:14px}
   @media (max-width:480px){ h1{font-size:36px} }
 </style>
 </head>
 <body>
 <div class="wrap">
 
-  <div class="top">
-    <a class="mark" href="index.html">Muro</a>
-    <a class="lang" href="#en" hreflang="en">English</a>
-  </div>
+  <nav class="top">
+    <a class="home" href="index.html"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M14.5 5.5L8 12l6.5 6.5" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/></svg><img src="assets/muro.svg" alt="" width="13" height="21">Muro</a>
+    <span class="tabs"><a lang="pt-BR" href="termos.html">Termos</a><a lang="en" href="termos.html#en">Terms</a></span>
+  </nav>
 
-  <section id="pt">
+  <section id="pt" lang="pt-BR">
 
   <h1><em>Privacidade</em> no Muro</h1>
   <p class="updated">Versão de 24 de outubro de 2026</p>
@@ -325,14 +330,8 @@
 
   </section>
 
-  <hr>
-
   <section id="en" lang="en">
 
-  <div class="top">
-    <span class="mark">Muro</span>
-    <a class="lang" href="#pt" hreflang="pt-BR">Português</a>
-  </div>
 
   <h1><em>Privacy</em> at Muro</h1>
   <p class="updated">Version of October 24, 2026</p>
@@ -603,12 +602,20 @@
 
   <hr>
   <footer>
-    Dúvidas sobre privacidade · Privacy questions:
-    <a href="mailto:henrique-lima-neves@hotmail.com">henrique-lima-neves@hotmail.com</a><br>
-    Muro · <a href="termos.html">Termos de Uso</a> · <a href="termos.html#en">Terms of Use</a> ·
-    <a href="index.html">voltar ao início</a>
+    <a class="home" href="index.html"><span lang="pt-BR">Voltar ao Muro</span><span lang="en">Back to Muro</span></a>
+    <button class="lang" type="button" data-lang><span lang="pt-BR">English</span><span lang="en">Português</span></button>
   </footer>
 
 </div>
+<script>
+  // One language at a time, the same one the home page is in.
+  const root = document.documentElement;
+  const fromHash = () => location.hash === '#en' ? 'en' : location.hash === '#pt' ? 'pt-BR' : null;
+  let saved = null; try { saved = localStorage.getItem('muro.lang'); } catch (e) {}
+  const setLang = l => { root.lang = l; try { localStorage.setItem('muro.lang', l); } catch (e) {} };
+  root.lang = fromHash() || saved || 'pt-BR';
+  addEventListener('hashchange', () => { const l = fromHash(); if (l) setLang(l); });
+  document.querySelector('[data-lang]').addEventListener('click', () => { setLang(root.lang === 'en' ? 'pt-BR' : 'en'); scrollTo(0, 0); });
+</script>
 </body>
 </html>

@@ -30,11 +30,9 @@
 
   .page{max-width:800px;margin:0 auto;padding:0 24px}
 
-  /* the mark, alone at the top; the language switch sits at its right */
+  /* the mark, alone at the top */
   header{position:relative;padding:44px 0 0;text-align:center}
   header img{width:26px;height:42px;display:inline-block}
-  .lang{position:absolute;right:0;top:52px;color:var(--muted);font-size:14px;text-decoration:none;background:none;border:0;cursor:pointer;font-family:inherit;padding:0}
-  .lang:hover{color:var(--ink)}
 
   .hero{position:relative;text-align:center;padding:64px 0 0}
   h1{position:relative;font-family:var(--serif);font-weight:400;
@@ -91,6 +89,9 @@
   footer a{color:var(--muted);text-decoration:none}
   footer a:hover{color:var(--ink)}
   footer .links{display:flex;flex-wrap:wrap;gap:8px 20px}
+  .lang{all:unset;cursor:pointer;color:var(--muted)}
+  .lang:hover{color:var(--ink)}
+  .lang:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
 
   /* two languages on one page: the other one is simply not shown */
   html[lang="pt-BR"] [lang="en"],html[lang="en"] [lang="pt-BR"]{display:none}
@@ -103,9 +104,6 @@
 
   <header>
     <img src="assets/muro.svg" alt="Muro" width="26" height="42">
-    <button class="lang" type="button" data-lang>
-      <span lang="pt-BR">English</span><span lang="en">Português</span>
-    </button>
   </header>
 
   <section class="hero">
@@ -120,33 +118,35 @@
   <section class="carousel" aria-roledescription="carrossel" aria-label="Telas do Muro">
     <div class="track">
       <figure class="shot">
+        <video src="assets/virar-pagina.mp4" poster="assets/telas/virar-pagina.webp" width="750" height="1630"
+               autoplay muted loop playsinline preload="metadata"
+               aria-label="Uma página vira devagar, como papel."></video>
+      </figure>
+      <figure class="shot">
+        <video src="assets/grifar.mp4" poster="assets/telas/grifar.webp" width="750" height="1630"
+               autoplay muted loop playsinline preload="metadata"
+               aria-label="Um trecho é selecionado e grifado em amarelo."></video>
+      </figure>
+      <figure class="shot">
         <video src="assets/home.mp4" poster="assets/mockup.png" width="750" height="1630"
                autoplay muted loop playsinline preload="metadata"
                aria-label="Uma página lida conta, e a meta do Foco fica cumprida."></video>
       </figure>
       <figure class="shot"><img src="assets/telas/02-foco.webp" alt="Foco: Instagram e TikTok guardados até você ler 3 páginas" width="750" height="1630"></figure>
-      <figure class="shot"><img src="assets/telas/02b-foco-bloqueado.webp" alt="A pausa: 15 minutos, 30 minutos ou 1 hora" width="750" height="1630"></figure>
       <figure class="shot"><img src="assets/telas/05b-ofensiva.webp" alt="A ofensiva: 10 dias seguidos lendo e o calendário do mês" width="750" height="1630"></figure>
-      <figure class="shot"><img src="assets/telas/12b-texto-grifo-menu.webp" alt="Um trecho grifado e o menu das cores" width="750" height="1630"></figure>
-      <figure class="shot"><img src="assets/telas/03-notas.webp" alt="As notas e a revisão de hoje" width="750" height="1630"></figure>
-      <figure class="shot"><img src="assets/telas/06-liga.webp" alt="A Liga do mês" width="750" height="1630"></figure>
     </div>
 
     <div class="cap" aria-live="polite">
+      <div><h2 lang="pt-BR">Parece papel</h2><h2 lang="en">Feels like paper</h2>
+        <p lang="pt-BR">A página vira como a de um livro, no fundo claro ou escuro.</p><p lang="en">Pages turn like a real book, on a light or dark page.</p></div>
+      <div><h2 lang="pt-BR">Grife e anote o que importa</h2><h2 lang="en">Highlight what matters</h2>
+        <p lang="pt-BR">Cinco cores e uma nota em cada trecho.</p><p lang="en">Five colours and a note on any passage.</p></div>
       <div><h2 lang="pt-BR">Só conta a página que você leu</h2><h2 lang="en">Only pages you actually read count</h2>
         <p lang="pt-BR">Folhear não vale. A meta do dia enche a cada página.</p><p lang="en">Flipping through doesn’t count. Your daily goal fills page by page.</p></div>
       <div><h2 lang="pt-BR">Seus apps esperam você ler</h2><h2 lang="en">Your apps wait while you read</h2>
         <p lang="pt-BR">Instagram, TikTok e o que mais distrai ficam bloqueados até a meta.</p><p lang="en">Instagram, TikTok and anything else stay blocked until you hit your goal.</p></div>
-      <div><h2 lang="pt-BR">Precisa antes? Peça uma pausa</h2><h2 lang="en">Need one sooner? Take a break</h2>
-        <p lang="pt-BR">15 minutos, 30 ou 1 hora. Depois, eles voltam a esperar.</p><p lang="en">15 minutes, 30 or an hour. Then they wait again.</p></div>
       <div><h2 lang="pt-BR">Uma página por dia mantém a ofensiva</h2><h2 lang="en">One page a day keeps your streak</h2>
         <p lang="pt-BR">O calendário guarda cada dia lido.</p><p lang="en">The calendar keeps every day you read.</p></div>
-      <div><h2 lang="pt-BR">Grife e anote o que importa</h2><h2 lang="en">Highlight what matters</h2>
-        <p lang="pt-BR">Cinco cores e uma nota em cada trecho.</p><p lang="en">Five colours and a note on any passage.</p></div>
-      <div><h2 lang="pt-BR">Lembre do que leu</h2><h2 lang="en">Remember what you read</h2>
-        <p lang="pt-BR">Todo dia, algumas notas voltam numa revisão rápida.</p><p lang="en">Every day, a few notes come back in a quick review.</p></div>
-      <div><h2 lang="pt-BR">Uma liga de leitores, todo mês</h2><h2 lang="en">A league of readers, every month</h2>
-        <p lang="pt-BR">Cada página lida vale XP.</p><p lang="en">Every page you read earns XP.</p></div>
     </div>
     <div class="dots"></div>
   </section>
@@ -158,10 +158,11 @@
   <footer>
     <span>Muro</span>
     <span class="links">
-      <a href="privacidade.html">Privacidade</a>
-      <a href="termos.html">Termos de Uso</a>
-      <a href="privacidade.html#en">Privacy</a>
-      <a href="termos.html#en">Terms</a>
+      <a lang="pt-BR" href="privacidade.html">Privacidade</a>
+      <a lang="pt-BR" href="termos.html">Termos de Uso</a>
+      <a lang="en" href="privacidade.html#en">Privacy</a>
+      <a lang="en" href="termos.html#en">Terms</a>
+      <button class="lang" type="button" data-lang><span lang="pt-BR">English</span><span lang="en">Português</span></button>
     </span>
   </footer>
 
@@ -192,7 +193,7 @@
   (() => {
     const shots = [...document.querySelectorAll('.shot')], caps = [...document.querySelectorAll('.cap > div')];
     const dots = document.querySelector('.dots'), n = shots.length;
-    const names = ['Leitura', 'Foco', 'Pausa', 'Ofensiva', 'Grifo', 'Revisão', 'Liga'];
+    const names = ['Página', 'Grifo', 'Leitura', 'Foco', 'Ofensiva'];
     let cur = 0, timer = null, paused = false;
     shots.forEach((s, i) => {
       const b = document.createElement('button'); b.type = 'button'; b.setAttribute('aria-label', `${names[i]}, ${i + 1} de ${n}`);
