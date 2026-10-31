@@ -19,6 +19,7 @@
     --serif:Charter,"Bitstream Charter","Iowan Old Style",Georgia,serif;
     --sans:"Helvetica Neue",Helvetica,Arial,sans-serif;
     --w:min(340px,74vw);          /* the phone in the middle, as it always was */
+    --g:.17;                      /* the air between phones, in phone widths */
   }
   *{box-sizing:border-box}
   html{-webkit-text-size-adjust:100%}
@@ -36,10 +37,6 @@
   .lang:hover{color:var(--ink)}
 
   .hero{position:relative;text-align:center;padding:64px 0 0}
-  .hero::before{content:"";position:absolute;left:50%;top:40px;translate:-50% 0;
-    width:min(680px,90vw);height:360px;border-radius:50%;
-    background:radial-gradient(closest-side,rgba(238,238,238,.10),transparent 70%);
-    pointer-events:none}
   h1{position:relative;font-family:var(--serif);font-weight:400;
      font-size:clamp(32px,5.6vw,60px);line-height:1.12;letter-spacing:-.01em;margin:0}
   h1 em{font-style:italic}
@@ -58,17 +55,31 @@
 
   /* ── The screens, one at a time ───────────────────────────────────────
      The phone in the middle is the old one, exactly: the screen alone,
-     its rounding and a hairline for the hardware. Its neighbours wait
-     behind it, smaller and in the dark. */
+     its rounding and a hairline for the hardware. The others line up to
+     both sides, smaller and in the dark, out to the edges of the window. */
   .carousel{position:relative;margin:72px auto 0;width:100%}
   .track{position:relative;height:calc(var(--w) * 812 / 375);touch-action:pan-y;user-select:none;-webkit-user-select:none}
   .shot{position:absolute;left:50%;top:0;width:var(--w);margin:0 0 0 calc(var(--w) / -2);aspect-ratio:375/812;
         border-radius:44px;overflow:hidden;background:#000;cursor:pointer;
         box-shadow:0 0 0 1px var(--rule), 0 40px 80px rgba(0,0,0,.6);
-        transform:translateX(calc(var(--o,0) * var(--w) * .66)) scale(var(--s,1));
+        transform:translateX(calc(var(--w) * var(--a,0) * (.92 + var(--g) + var(--n,0) * (.84 + var(--g))))) scale(var(--s,1));
         filter:brightness(var(--b,1));transition:transform .7s cubic-bezier(.22,.7,.2,1),filter .7s ease,opacity .5s ease}
   .shot.on{cursor:default}
   .shot img,.shot video{width:100%;height:100%;object-fit:cover;pointer-events:none;-webkit-user-drag:none}
+
+  /* the arrows: in the gaps beside the phone in front, once the mouse is over it */
+  .arrow{all:unset;position:absolute;top:50%;left:50%;z-index:20;width:44px;height:44px;margin:-22px 0 0 -22px;
+         display:grid;place-items:center;border-radius:50%;background:#28282b;box-shadow:inset 0 0 0 1px #3c3c3c;
+         color:var(--ink);cursor:pointer;opacity:0;pointer-events:none;transition:opacity .25s ease,background .2s ease}
+  .arrow svg{width:24px;height:24px;display:block}
+  .arrow.prev{transform:translateX(calc(var(--w) * -.5 - var(--w) * var(--g) / 2))}
+  .arrow.prev svg{transform:scaleX(-1)}
+  .arrow.next{transform:translateX(calc(var(--w) * .5 + var(--w) * var(--g) / 2))}
+  .arrow:hover{background:#333336}
+  .carousel:hover .arrow,.arrow:focus-visible{opacity:1;pointer-events:auto}
+  .arrow:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+  @media (hover:none){ .arrow{display:none} }
+  @media (max-width:600px){ :root{--g:.05} }
 
   /* a few words for the screen in front, then the dots */
   .cap{position:relative;text-align:center;margin:36px auto 0;max-width:420px;min-height:62px}
@@ -131,6 +142,8 @@
       <figure class="shot"><img src="assets/telas/12b-texto-grifo-menu.webp" alt="Um trecho grifado e o menu das cores" width="750" height="1630"></figure>
       <figure class="shot"><img src="assets/telas/03-notas.webp" alt="As notas e a revisão de hoje" width="750" height="1630"></figure>
       <figure class="shot"><img src="assets/telas/06-liga.webp" alt="A Liga do mês" width="750" height="1630"></figure>
+      <button class="arrow prev" type="button" data-step="-1" aria-label="Tela anterior"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9.5 5.5L16 12l-6.5 6.5" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      <button class="arrow next" type="button" data-step="1" aria-label="Próxima tela"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9.5 5.5L16 12l-6.5 6.5" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
     </div>
 
     <div class="cap" aria-live="polite">
@@ -175,9 +188,14 @@
   const root = document.documentElement;
 
   // Language: Portuguese, unless the visitor chose English here or came by #en.
-  const setLang = l => { root.lang = l; try { localStorage.setItem('muro.lang', l); } catch (e) {} };
+  const setLang = l => {
+    root.lang = l; try { localStorage.setItem('muro.lang', l); } catch (e) {}
+    const en = l === 'en';
+    document.querySelector('.arrow.prev').setAttribute('aria-label', en ? 'Previous screen' : 'Tela anterior');
+    document.querySelector('.arrow.next').setAttribute('aria-label', en ? 'Next screen' : 'Próxima tela');
+  };
   let saved = null; try { saved = localStorage.getItem('muro.lang'); } catch (e) {}
-  root.lang = location.hash === '#en' ? 'en' : saved || 'pt-BR';
+  setLang(location.hash === '#en' ? 'en' : saved || 'pt-BR');
   document.querySelector('[data-lang]').addEventListener('click', () => setLang(root.lang === 'en' ? 'pt-BR' : 'en'));
 
   document.querySelectorAll('[data-store]').forEach(a => {
@@ -189,7 +207,7 @@
   });
 
   // The carousel: each screen sits at its distance from the one in front,
-  // wrapping round; only the two neighbours show, behind it.
+  // wrapping round; the others stand in a row to each side of it.
   (() => {
     const shots = [...document.querySelectorAll('.shot')], caps = [...document.querySelectorAll('.cap > div')];
     const dots = document.querySelector('.dots'), n = shots.length;
@@ -206,11 +224,12 @@
         const o = off(i), was = s.dataset.o === undefined ? o : +s.dataset.o;
         if (Math.abs(o - was) > 1) { s.style.transition = 'none'; requestAnimationFrame(() => requestAnimationFrame(() => s.style.transition = '')); }
         s.dataset.o = o;
-        s.style.setProperty('--o', o);
-        s.style.setProperty('--s', o === 0 ? 1 : .84);
-        s.style.setProperty('--b', o === 0 ? 1 : .32);
-        s.style.zIndex = 10 - Math.abs(o);
-        s.style.opacity = Math.abs(o) > 1 ? 0 : 1;
+        const far = Math.abs(o);
+        s.style.setProperty('--a', Math.sign(o));
+        s.style.setProperty('--n', Math.max(0, far - 1));
+        s.style.setProperty('--s', far ? .84 : 1);
+        s.style.setProperty('--b', far ? Math.max(.2, .42 - (far - 1) * .11) : 1);
+        s.style.zIndex = 10 - far;
         s.classList.toggle('on', o === 0);
         s.setAttribute('aria-hidden', o !== 0);
       });
@@ -219,6 +238,7 @@
     };
     const go = i => { cur = (i + n) % n; lay(); };
     const restart = () => { clearInterval(timer); if (!reduce && !paused) timer = setInterval(() => { if (!document.hidden) go(cur + 1); }, 4000); };
+    document.querySelectorAll('.arrow').forEach(b => b.addEventListener('click', () => { go(cur + +b.dataset.step); restart(); }));
     const car = document.querySelector('.carousel');
     car.addEventListener('mouseenter', () => { paused = true; restart(); });
     car.addEventListener('mouseleave', () => { paused = false; restart(); });
