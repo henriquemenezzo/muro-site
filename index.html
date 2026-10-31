@@ -50,7 +50,7 @@
 
   /* ── The screens, one at a time ───────────────────────────────────────
      The screens alone, with the faintest hairline for the hardware. Its two
-     neighbours wait behind it, smaller and half see-through. */
+     neighbours wait behind it, smaller and faint. */
   .carousel{position:relative;margin:72px auto 0;width:100%}
   .track{position:relative;height:calc(var(--w) * 812 / 375);touch-action:pan-y;user-select:none;-webkit-user-select:none}
   .shot{position:absolute;left:50%;top:0;width:var(--w);margin:0 0 0 calc(var(--w) / -2);aspect-ratio:375/812;
@@ -241,7 +241,7 @@
         s.style.setProperty('--a', Math.sign(o));
         s.style.setProperty('--s', far ? .84 : 1);
         s.style.zIndex = 10 - far;
-        s.style.opacity = far > 1 ? 0 : far ? .5 : 1;
+        s.style.opacity = far > 1 ? 0 : far ? .2 : 1;
         s.classList.toggle('on', o === 0);
         s.setAttribute('aria-hidden', o !== 0);
       });
