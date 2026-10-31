@@ -19,7 +19,6 @@
     --serif:Charter,"Bitstream Charter","Iowan Old Style",Georgia,serif;
     --sans:"Helvetica Neue",Helvetica,Arial,sans-serif;
     --w:min(340px,74vw);          /* the phone in the middle, as it always was */
-    --g:.17;                      /* the air between phones, in phone widths */
   }
   *{box-sizing:border-box}
   html{-webkit-text-size-adjust:100%}
@@ -50,19 +49,18 @@
   .store[aria-disabled="true"]:hover{opacity:1}
 
   /* ── The screens, one at a time ───────────────────────────────────────
-     The screens alone, with the faintest hairline for the hardware. The others line up to
-     both sides, smaller and dimmer, out to the edges of the window. */
+     The screens alone, with the faintest hairline for the hardware. Its two
+     neighbours wait behind it, smaller and dimmer. */
   .carousel{position:relative;margin:72px auto 0;width:100%}
   .track{position:relative;height:calc(var(--w) * 812 / 375);touch-action:pan-y;user-select:none;-webkit-user-select:none}
   .shot{position:absolute;left:50%;top:0;width:var(--w);margin:0 0 0 calc(var(--w) / -2);aspect-ratio:375/812;
         border-radius:30px;overflow:hidden;background:#000;cursor:pointer;
         box-shadow:0 0 0 1px rgba(238,238,238,.07), 0 40px 80px rgba(0,0,0,.6);
-        transform:translateX(calc(var(--w) * var(--a,0) * (.92 + var(--g) + var(--n,0) * (.84 + var(--g))))) scale(var(--s,1));
+        transform:translateX(calc(var(--w) * var(--a,0) * .66)) scale(var(--s,1));
         filter:brightness(var(--b,1));transition:transform .7s cubic-bezier(.22,.7,.2,1),filter .7s ease,opacity .5s ease}
   .shot.on{cursor:default}
   .shot img,.shot video{width:100%;height:100%;object-fit:cover;pointer-events:none;-webkit-user-drag:none}
 
-  @media (max-width:600px){ :root{--g:.05} }
 
   /* a few words for the screen in front, then the dots */
   .cap{position:relative;text-align:center;margin:36px auto 0;max-width:420px;min-height:62px}
@@ -221,25 +219,18 @@
   });
 
   // The carousel: each screen sits at its distance from the one in front,
-  // wrapping round; the others stand in a row to each side of it.
+  // wrapping round; only the two neighbours show, behind it.
   (() => {
-    // Four screens would leave a gap at one side, so the row repeats them until
-    // it reaches both edges of the window. The dots still count the four.
     const track = document.querySelector('.track'), caps = [...document.querySelectorAll('.cap > div')];
-    const real = [...document.querySelectorAll('.shot')], m = real.length, shots = [...real];
-    while (shots.length < 12) real.forEach(s => {
-      const c = s.cloneNode(true);
-      c.querySelectorAll('video').forEach(v => { v.muted = true; v.removeAttribute('aria-label'); });
-      track.append(c); shots.push(c);
-    });
+    const shots = [...document.querySelectorAll('.shot')];
     const dots = document.querySelector('.dots'), n = shots.length;
     const names = ['Página', 'Grifo', 'Foco', 'Ofensiva'];
     let cur = 0, timer = null, paused = false;
-    real.forEach((s, i) => {
-      const b = document.createElement('button'); b.type = 'button'; b.setAttribute('aria-label', `${names[i]}, ${i + 1} de ${m}`);
-      b.addEventListener('click', () => { go(cur + ((i - cur % m + m) % m)); restart(); }); dots.appendChild(b);
+    shots.forEach((s, i) => {
+      const b = document.createElement('button'); b.type = 'button'; b.setAttribute('aria-label', `${names[i]}, ${i + 1} de ${n}`);
+      b.addEventListener('click', () => { go(i); restart(); }); dots.appendChild(b);
+      s.addEventListener('click', () => { if (i !== cur) { go(i); restart(); } });
     });
-    shots.forEach((s, i) => s.addEventListener('click', () => { if (i !== cur) { go(i); restart(); } }));
     const off = i => { let o = ((i - cur) % n + n) % n; return o > n / 2 ? o - n : o; };
     const lay = () => {
       shots.forEach((s, i) => {
@@ -248,15 +239,15 @@
         s.dataset.o = o;
         const far = Math.abs(o);
         s.style.setProperty('--a', Math.sign(o));
-        s.style.setProperty('--n', Math.max(0, far - 1));
         s.style.setProperty('--s', far ? .84 : 1);
-        s.style.setProperty('--b', far ? .86 - (far - 1) * .07 : 1);
+        s.style.setProperty('--b', far ? .5 : 1);
         s.style.zIndex = 10 - far;
+        s.style.opacity = far > 1 ? 0 : 1;
         s.classList.toggle('on', o === 0);
         s.setAttribute('aria-hidden', o !== 0);
       });
-      caps.forEach((c, i) => c.classList.toggle('on', i === cur % m));
-      [...dots.children].forEach((b, i) => b.setAttribute('aria-current', i === cur % m));
+      caps.forEach((c, i) => c.classList.toggle('on', i === cur));
+      [...dots.children].forEach((b, i) => b.setAttribute('aria-current', i === cur));
     };
     const go = i => { cur = (i + n) % n; lay(); };
     const restart = () => { clearInterval(timer); if (!reduce && !paused) timer = setInterval(() => { if (!document.hidden) go(cur + 1); }, 5500); };
