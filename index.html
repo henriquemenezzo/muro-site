@@ -4,15 +4,15 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Muro — Leia, pense e lembre sem distrações</title>
-<meta name="description" content="Um leitor de PDF para iPhone que segura os apps que distraem até você ler as páginas do dia.">
+<meta name="description" content="Seus apps ficam bloqueados até você ler as páginas do dia.">
 <meta property="og:title" content="Muro — Leia, pense e lembre sem distrações">
-<meta property="og:description" content="Um leitor de PDF para iPhone que segura os apps que distraem até você ler as páginas do dia.">
+<meta property="og:description" content="Seus apps ficam bloqueados até você ler as páginas do dia.">
 <meta property="og:image" content="assets/mockup.png">
 <link rel="icon" href="assets/muro.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <style>
   :root{
-    --ground:#0a0a0a;
+    --ground:#101010;
     --ink:#eeeeee;
     --muted:#9b9b9b;
     --rule:rgba(238,238,238,.12);
@@ -32,14 +32,14 @@
 
   /* the mark, alone at the top */
   header{position:relative;padding:44px 0 0;text-align:center}
-  header img{width:26px;height:42px;display:inline-block}
+  header .mark{width:26px;height:42px;display:inline-block;overflow:visible}
 
   .hero{position:relative;text-align:center;padding:64px 0 0}
   h1{position:relative;font-family:var(--serif);font-weight:400;
      font-size:clamp(32px,5.6vw,60px);line-height:1.12;letter-spacing:-.01em;margin:0}
   h1 em{font-style:italic}
   .lede{position:relative;color:var(--muted);font-size:clamp(15px,2vw,18px);
-        max-width:460px;margin:22px auto 0}
+        max-width:460px;margin:22px auto 0;text-wrap:balance}
 
   /* the App Store link: ink on the ground, the one filled shape on the page */
   .store{position:relative;display:inline-block;margin-top:32px;padding:12px 24px;
@@ -48,18 +48,15 @@
   .store:hover{opacity:.88}
   .store[aria-disabled="true"]{cursor:default}
   .store[aria-disabled="true"]:hover{opacity:1}
-  .soon{position:relative;display:block;margin-top:14px;
-        color:var(--muted);font-size:14px;letter-spacing:.02em}
 
   /* ── The screens, one at a time ───────────────────────────────────────
-     The screens alone, with no outline: the app's own ground is lighter
-     than the page's, and that is the phone's edge. The others line up to
+     The screens alone, with the faintest hairline for the hardware. The others line up to
      both sides, smaller and dimmer, out to the edges of the window. */
   .carousel{position:relative;margin:72px auto 0;width:100%}
   .track{position:relative;height:calc(var(--w) * 812 / 375);touch-action:pan-y;user-select:none;-webkit-user-select:none}
   .shot{position:absolute;left:50%;top:0;width:var(--w);margin:0 0 0 calc(var(--w) / -2);aspect-ratio:375/812;
         border-radius:30px;overflow:hidden;background:#000;cursor:pointer;
-        box-shadow:0 40px 80px rgba(0,0,0,.6);
+        box-shadow:0 0 0 1px rgba(238,238,238,.07), 0 40px 80px rgba(0,0,0,.6);
         transform:translateX(calc(var(--w) * var(--a,0) * (.92 + var(--g) + var(--n,0) * (.84 + var(--g))))) scale(var(--s,1));
         filter:brightness(var(--b,1));transition:transform .7s cubic-bezier(.22,.7,.2,1),filter .7s ease,opacity .5s ease}
   .shot.on{cursor:default}
@@ -93,6 +90,21 @@
   .lang:hover{color:var(--ink)}
   .lang:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
 
+  /* The way in. The mark opens as it does on the app's splash: a closed book
+     whose pages fan out from the spine, inside first. The words then come up
+     out of a blur. */
+  @keyframes rise-in{from{opacity:0;filter:blur(14px);transform:translateY(10px)}}
+  @keyframes mark-in{from{opacity:0;transform:scale(.94)}}
+  @keyframes page-out{from{opacity:0;transform:rotate(var(--r))}}
+  .moves .mark{animation:mark-in .35s ease-out backwards}
+  .moves .mark path[class]{transform-box:view-box;transform-origin:.8px 33.7px;
+    animation:page-out .85s cubic-bezier(.3,1.32,.5,1) var(--t) backwards}
+  .moves .p3{--r:19deg;--t:.46s}
+  .moves .p2{--r:40deg;--t:.56s}
+  .moves .p1{--r:44deg;--t:.66s}
+  .w{display:inline-block}
+  .moves .w,.moves .in{animation:rise-in 1.1s cubic-bezier(.22,.7,.2,1) var(--d,0s) backwards}
+
   /* two languages on one page: the other one is simply not shown */
   html[lang="pt-BR"] [lang="en"],html[lang="en"] [lang="pt-BR"]{display:none}
 
@@ -103,16 +115,18 @@
 <div class="page">
 
   <header>
-    <img src="assets/muro.svg" alt="Muro" width="26" height="42">
+    <svg class="mark" width="26" height="42" viewBox="0 0 26 42" fill="none" role="img" aria-label="Muro">
+      <path class="p1" d="M19.2818 0.0157947L0.824219 5.79023C2.26783 12.6302 5.34065 26.3513 6.08308 26.5163C6.8255 26.6813 15.9477 24.8665 20.416 23.9384V0.943829C20.416 0.325054 19.9005 -0.0873241 19.2818 0.0157947Z" fill="#8C8C8C"/>
+      <path class="p2" d="M24.0248 4.14023L6.28906 8.26482L15.5694 32.5999L24.3342 33.0124C24.9529 33.0124 25.2622 32.7031 25.2622 31.8781V5.06826C25.2622 4.55269 24.7466 4.03713 24.0248 4.14023Z" fill="#777777"/>
+      <path class="p3" d="M19.4875 37.6527L15.9816 36.8277L3.19531 33.1156V7.95557L19.4875 10.3272C20.4155 10.5334 20.4155 11.1521 20.4155 11.6677V36.8277C20.4155 37.5495 20.003 37.6527 19.4875 37.6527Z" fill="#B8B8B8"/>
+      <path d="M14.7454 41.8805L0.824919 33.7344C0.103115 33.2188 0 32.7032 0 31.8783V6.40894C0 5.79019 0.721804 5.584 1.44361 5.89337L14.7454 13.7301C15.3641 14.0394 15.6735 14.555 15.7766 15.1737V40.7462C15.7766 41.5711 15.3641 42.2929 14.7454 41.8805Z" fill="#D9D9D9"/>
+    </svg>
   </header>
 
   <section class="hero">
     <h1><span lang="pt-BR"><em>Leia</em>, pense e lembre<br>sem distrações</span><span lang="en"><em>Read</em>, think and remember<br>without distractions</span></h1>
-    <p class="lede"><span lang="pt-BR">Um leitor de PDF para iPhone que segura os apps que distraem
-      até você ler as páginas do dia.</span><span lang="en">A PDF reader for iPhone that holds back distracting apps until
-      you read the day’s pages.</span></p>
+    <p class="lede"><span lang="pt-BR">Seus apps ficam bloqueados até você ler as páginas do dia.</span><span lang="en">Your apps stay blocked until you read today’s pages.</span></p>
     <a class="store" data-store><span lang="pt-BR">Em breve na App Store</span><span lang="en">Coming soon to the App Store</span></a>
-    <span class="soon"><span lang="pt-BR">Para iPhone · Grátis para baixar</span><span lang="en">For iPhone · Free to download</span></span>
   </section>
 
   <section class="carousel" aria-roledescription="carrossel" aria-label="Telas do Muro">
@@ -127,11 +141,6 @@
                autoplay muted loop playsinline preload="metadata"
                aria-label="Um trecho é selecionado e grifado em amarelo."></video>
       </figure>
-      <figure class="shot">
-        <video src="assets/home.mp4" poster="assets/mockup.png" width="750" height="1630"
-               autoplay muted loop playsinline preload="metadata"
-               aria-label="Uma página lida conta, e a meta do Foco fica cumprida."></video>
-      </figure>
       <figure class="shot"><img src="assets/telas/02-foco.webp" alt="Foco: Instagram e TikTok guardados até você ler 3 páginas" width="750" height="1630"></figure>
       <figure class="shot"><img src="assets/telas/05b-ofensiva.webp" alt="A ofensiva: 10 dias seguidos lendo e o calendário do mês" width="750" height="1630"></figure>
     </div>
@@ -141,8 +150,6 @@
         <p lang="pt-BR">A página vira como a de um livro, no fundo claro ou escuro.</p><p lang="en">Pages turn like a real book, on a light or dark page.</p></div>
       <div><h2 lang="pt-BR">Grife e anote o que importa</h2><h2 lang="en">Highlight what matters</h2>
         <p lang="pt-BR">Cinco cores e uma nota em cada trecho.</p><p lang="en">Five colours and a note on any passage.</p></div>
-      <div><h2 lang="pt-BR">Só conta a página que você leu</h2><h2 lang="en">Only pages you actually read count</h2>
-        <p lang="pt-BR">Folhear não vale. A meta do dia enche a cada página.</p><p lang="en">Flipping through doesn’t count. Your daily goal fills page by page.</p></div>
       <div><h2 lang="pt-BR">Seus apps esperam você ler</h2><h2 lang="en">Your apps wait while you read</h2>
         <p lang="pt-BR">Instagram, TikTok e o que mais distrai ficam bloqueados até a meta.</p><p lang="en">Instagram, TikTok and anything else stay blocked until you hit your goal.</p></div>
       <div><h2 lang="pt-BR">Uma página por dia mantém a ofensiva</h2><h2 lang="en">One page a day keeps your streak</h2>
@@ -168,6 +175,31 @@
 
 </div>
 <script>
+  // The way in: each word of the headline and the line under it on its own beat.
+  if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const words = (el, from, step) => {
+      let i = 0;
+      const walk = n => [...n.childNodes].forEach(c => {
+        if (c.nodeType !== 3) return walk(c);
+        const f = document.createDocumentFragment();
+        c.textContent.split(/(\s+)/).forEach(t => {
+          if (!t.trim()) return f.append(' ');
+          const w = document.createElement('span');
+          w.className = 'w'; w.textContent = t; w.style.setProperty('--d', `${from + i++ * step}s`);
+          f.append(w);
+        });
+        c.replaceWith(f);
+      });
+      el.querySelectorAll('[lang]').forEach(l => { i = 0; walk(l); });
+    };
+    words(document.querySelector('h1'), .95, .09);
+    words(document.querySelector('.lede'), 1.6, .035);
+    [['.store', 2.2], ['.carousel', 2.4]].forEach(([q, d]) => {
+      const e = document.querySelector(q); e.classList.add('in'); e.style.setProperty('--d', `${d}s`);
+    });
+    document.documentElement.classList.add('moves');
+  }
+
   // The App Store link, once Muro is live. While empty, the button reads
   // "Em breve na App Store" and goes nowhere.
   const APP_STORE = "";
@@ -193,7 +225,7 @@
   (() => {
     const shots = [...document.querySelectorAll('.shot')], caps = [...document.querySelectorAll('.cap > div')];
     const dots = document.querySelector('.dots'), n = shots.length;
-    const names = ['Página', 'Grifo', 'Leitura', 'Foco', 'Ofensiva'];
+    const names = ['Página', 'Grifo', 'Foco', 'Ofensiva'];
     let cur = 0, timer = null, paused = false;
     shots.forEach((s, i) => {
       const b = document.createElement('button'); b.type = 'button'; b.setAttribute('aria-label', `${names[i]}, ${i + 1} de ${n}`);
@@ -210,7 +242,7 @@
         s.style.setProperty('--a', Math.sign(o));
         s.style.setProperty('--n', Math.max(0, far - 1));
         s.style.setProperty('--s', far ? .84 : 1);
-        s.style.setProperty('--b', far ? .72 - (far - 1) * .1 : 1);
+        s.style.setProperty('--b', far ? .86 - (far - 1) * .07 : 1);
         s.style.zIndex = 10 - far;
         s.classList.toggle('on', o === 0);
         s.setAttribute('aria-hidden', o !== 0);
