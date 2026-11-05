@@ -7,7 +7,8 @@
 <meta name="description" content="Seus apps ficam bloqueados até você ler as páginas do dia.">
 <meta property="og:title" content="Muro — Leia, pense e lembre sem distrações">
 <meta property="og:description" content="Seus apps ficam bloqueados até você ler as páginas do dia.">
-<meta property="og:image" content="assets/mockup.png">
+<meta property="og:image" content="https://muroapp.com.br/assets/mockup.png">
+<meta name="apple-itunes-app" content="app-id=6808436578">
 <link rel="icon" href="assets/muro.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <style>
@@ -166,9 +167,12 @@
     document.documentElement.classList.add('moves');
   }
 
-  // The App Store link, once Muro is live. While empty, the button reads
-  // "Em breve na App Store" and goes nowhere.
-  const APP_STORE = "";
+  // The App Store link (live since 5/nov/2026). While empty, the button reads
+  // "Em breve na App Store" and goes nowhere. On an iPhone the App Store opens
+  // in the reader's own country whatever the link says; on a computer the
+  // page follows the language chosen here.
+  const APP_STORE = "https://apps.apple.com/br/app/id6808436578";
+  const APP_STORE_EN = "https://apps.apple.com/us/app/id6808436578";
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const root = document.documentElement;
 
@@ -176,11 +180,15 @@
   const setLang = l => { root.lang = l; try { localStorage.setItem('muro.lang', l); } catch (e) {} };
   let saved = null; try { saved = localStorage.getItem('muro.lang'); } catch (e) {}
   root.lang = location.hash === '#en' ? 'en' : saved || 'pt-BR';
-  document.querySelector('[data-lang]').addEventListener('click', () => setLang(root.lang === 'en' ? 'pt-BR' : 'en'));
+  const storeLink = () => root.lang === 'en' ? APP_STORE_EN : APP_STORE;
+  document.querySelector('[data-lang]').addEventListener('click', () => {
+    setLang(root.lang === 'en' ? 'pt-BR' : 'en');
+    if (APP_STORE) document.querySelectorAll('[data-store]').forEach(a => { a.href = storeLink(); });
+  });
 
   document.querySelectorAll('[data-store]').forEach(a => {
     if (APP_STORE) {
-      a.href = APP_STORE;
+      a.href = storeLink();
       a.querySelector('[lang="pt-BR"]').textContent = 'Baixar na App Store';
       a.querySelector('[lang="en"]').textContent = 'Download on the App Store';
     } else { a.setAttribute('aria-disabled', 'true'); a.setAttribute('role', 'link'); }

@@ -1,0 +1,18 @@
+{
+  "applinks": {
+    "details": [
+      {
+        "appIDs": [
+          "56DQ739H28.com.riklima.folio",
+          "56DQ739H28.com.riklima.folio.qa"
+        ],
+        "components": [
+          {
+            "/": "/@*",
+            "comment": "A reader's profile: muroapp.com.br/@handle opens it in Muro."
+          }
+        ]
+      }
+    ]
+  }
+}

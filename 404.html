@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Muro</title>
+<!-- Every address the site does not have lands here (GitHub Pages serves
+     404.html for it). Two of them are pages of their own:
+       /@handle  a reader's link, shared from the app. With Muro on the
+                 phone, iOS opens the profile in the app before this page
+                 loads (universal link: .well-known/apple-app-site-association).
+                 Without it: on an iPhone or iPad, straight to the App Store;
+                 anywhere else, a page that says whose link it is.
+       anything else: page not found. -->
+<meta name="description" content="Seus apps ficam bloqueados até você ler as páginas do dia.">
+<meta property="og:site_name" content="Muro">
+<meta property="og:title" content="Me encontre no Muro">
+<meta property="og:description" content="Seus apps ficam bloqueados até você ler as páginas do dia.">
+<meta property="og:image" content="https://muroapp.com.br/assets/mockup.png">
+<meta name="apple-itunes-app" content="app-id=6808436578">
+<link rel="icon" href="/assets/muro.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<script>
+  // Before anything is drawn: a reader's link opened on an iPhone or iPad
+  // without Muro goes to the App Store, as the app's share screen promises
+  // ("Quem não tem cai na App Store"). iPadOS asks for desktop pages, so it
+  // is told apart by its touch screen.
+  (function () {
+    var m = location.pathname.match(/^\/@([a-z0-9._]{1,30})\/?$/i);
+    var ios = /iPhone|iPad|iPod/.test(navigator.userAgent) ||
+              (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+    if (m && ios) location.replace('https://apps.apple.com/br/app/id6808436578');
+  })();
+</script>
+<style>
+  :root{
+    --ground:#101010;
+    --ink:#eeeeee;
+    --muted:#9b9b9b;
+    --rule:rgba(238,238,238,.12);
+    --serif:Charter,"Bitstream Charter","Iowan Old Style",Georgia,serif;
+    --sans:"Helvetica Neue",Helvetica,Arial,sans-serif;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{margin:0;background:var(--ground);color:var(--ink);
+       font-family:var(--sans);font-size:16px;line-height:1.65;
+       -webkit-font-smoothing:antialiased;min-height:100vh;display:flex;flex-direction:column}
+  .page{width:100%;max-width:800px;margin:0 auto;padding:0 24px;flex:1;display:flex;flex-direction:column}
+
+  header{padding:44px 0 0;text-align:center}
+  header a{display:inline-block}
+  header .mark{width:26px;height:42px;display:block}
+
+  main{flex:1;text-align:center;padding:96px 0 0}
+  h1{font-family:var(--serif);font-weight:400;font-size:clamp(30px,5.2vw,52px);
+     line-height:1.15;letter-spacing:-.01em;margin:0;text-wrap:balance;overflow-wrap:anywhere}
+  h1 em{font-style:italic}
+  .lede{color:var(--muted);font-size:clamp(15px,2vw,18px);max-width:520px;margin:20px auto 0;text-wrap:balance}
+
+  .store{display:inline-block;margin-top:32px;padding:12px 24px;border-radius:999px;
+         background:var(--ink);color:var(--ground);font-size:15px;font-weight:500;
+         letter-spacing:.01em;text-decoration:none}
+  .store:hover{opacity:.88}
+  .store:focus-visible,.home:focus-visible,footer a:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+
+  .aside{margin:28px auto 0;max-width:420px;color:var(--muted);font-size:14px;text-wrap:balance}
+  .home{color:var(--ink)}
+
+  footer{margin:96px 0 0;border-top:1px solid var(--rule);padding:28px 0 64px;
+         display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;color:var(--muted);font-size:14px}
+  footer a{color:var(--muted);text-decoration:none}
+  footer a:hover{color:var(--ink)}
+
+  [data-view]{display:none}
+  html[data-show="reader"] [data-view="reader"],
+  html[data-show="missing"] [data-view="missing"]{display:block}
+  html[lang="pt-BR"] [lang="en"],html[lang="en"] [lang="pt-BR"]{display:none}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header>
+    <a href="/" aria-label="Muro">
+      <svg class="mark" width="26" height="42" viewBox="0 0 26 42" fill="none" aria-hidden="true">
+        <path d="M19.2818 0.0157947L0.824219 5.79023C2.26783 12.6302 5.34065 26.3513 6.08308 26.5163C6.8255 26.6813 15.9477 24.8665 20.416 23.9384V0.943829C20.416 0.325054 19.9005 -0.0873241 19.2818 0.0157947Z" fill="#8C8C8C"/>
+        <path d="M24.0248 4.14023L6.28906 8.26482L15.5694 32.5999L24.3342 33.0124C24.9529 33.0124 25.2622 32.7031 25.2622 31.8781V5.06826C25.2622 4.55269 24.7466 4.03713 24.0248 4.14023Z" fill="#777777"/>
+        <path d="M19.4875 37.6527L15.9816 36.8277L3.19531 33.1156V7.95557L19.4875 10.3272C20.4155 10.5334 20.4155 11.1521 20.4155 11.6677V36.8277C20.4155 37.5495 20.003 37.6527 19.4875 37.6527Z" fill="#B8B8B8"/>
+        <path d="M14.7454 41.8805L0.824919 33.7344C0.103115 33.2188 0 32.7032 0 31.8783V6.40894C0 5.79019 0.721804 5.584 1.44361 5.89337L14.7454 13.7301C15.3641 14.0394 15.6735 14.555 15.7766 15.1737V40.7462C15.7766 41.5711 15.3641 42.2929 14.7454 41.8805Z" fill="#D9D9D9"/>
+      </svg>
+    </a>
+  </header>
+
+  <main>
+    <!-- A reader's link, seen on a computer or an Android phone. -->
+    <section data-view="reader">
+      <h1><span lang="pt-BR"><em data-handle></em> está lendo no Muro</span><span lang="en"><em data-handle></em> is reading on Muro</span></h1>
+      <p class="lede"><span lang="pt-BR">Baixe o Muro para seguir e ler junto. Seus apps ficam bloqueados até você ler as páginas do dia.</span><span lang="en">Get Muro to follow along and read together. Your apps stay blocked until you read today’s pages.</span></p>
+      <a class="store" data-store href="https://apps.apple.com/br/app/id6808436578"><span lang="pt-BR">Baixar na App Store</span><span lang="en">Download on the App Store</span></a>
+      <p class="aside"><span lang="pt-BR">Já tem o Muro? Abra este link no iPhone e o perfil abre no app. Para Android, em breve.</span><span lang="en">Already have Muro? Open this link on your iPhone and the profile opens in the app. Android is coming soon.</span></p>
+    </section>
+
+    <!-- Any other address. -->
+    <section data-view="missing">
+      <h1><span lang="pt-BR">Página não encontrada</span><span lang="en">Page not found</span></h1>
+      <p class="lede"><a class="home" href="/"><span lang="pt-BR">Voltar ao Muro</span><span lang="en">Back to Muro</span></a></p>
+    </section>
+  </main>
+
+  <footer>
+    <a href="/">Muro</a>
+    <span><a href="/privacidade.html" lang="pt-BR">Privacidade</a><a href="/privacidade.html#en" lang="en">Privacy</a></span>
+  </footer>
+
+</div>
+<script>
+  // Which page this is, and in which language: the one chosen on the site,
+  // or the browser's (Portuguese for Portuguese, English otherwise).
+  var root = document.documentElement;
+  var m = location.pathname.match(/^\/@([a-z0-9._]{1,30})\/?$/i);
+  var saved = null; try { saved = localStorage.getItem('muro.lang'); } catch (e) {}
+  root.lang = saved || (/^pt/i.test(navigator.language || '') ? 'pt-BR' : 'en');
+  root.setAttribute('data-show', m ? 'reader' : 'missing');
+  if (m) {
+    var handle = '@' + m[1].toLowerCase();
+    document.querySelectorAll('[data-handle]').forEach(function (e) { e.textContent = handle; });
+    document.title = handle + ' · Muro';
+    if (root.lang === 'en') document.querySelector('[data-store]').href = 'https://apps.apple.com/us/app/id6808436578';
+  }
+</script>
+</body>
+</html>
