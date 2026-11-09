@@ -1,0 +1,23 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.riklima.muro.android",
+      "sha256_cert_fingerprints": [
+        "1D:0A:30:76:A3:6E:EF:77:94:12:0F:BF:74:E6:FC:CB:C9:67:6B:ED:09:ED:FA:8D:B0:42:33:22:A0:A7:CD:B2",
+        "32:39:14:C2:CB:F4:E8:FE:EB:94:C2:0E:36:79:78:10:62:29:7C:C4:A4:18:CC:9E:6F:23:74:47:B7:1C:4A:85"
+      ]
+    }
+  },
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.riklima.muro.android.qa",
+      "sha256_cert_fingerprints": [
+        "26:20:D6:8B:A5:3B:FB:BC:B9:63:31:E3:91:D0:80:2C:CD:7F:7C:D7:2F:03:CA:27:5D:44:9D:21:E1:08:B9:07"
+      ]
+    }
+  }
+]
