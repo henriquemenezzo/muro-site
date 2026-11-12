@@ -13,7 +13,7 @@
           },
           {
             "/": "/g/*",
-            "comment": "A group's link: muroapp.com.br/g/<code> opens the invitation in Muro."
+            "comment": "A group's link: muroapp.com.br/g/?<code> (and the first form, /g/<code>) opens the invitation in Muro."
           }
         ]
       }
