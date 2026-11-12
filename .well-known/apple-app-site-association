@@ -10,6 +10,10 @@
           {
             "/": "/@*",
             "comment": "A reader's profile: muroapp.com.br/@handle opens it in Muro."
+          },
+          {
+            "/": "/g/*",
+            "comment": "A group's link: muroapp.com.br/g/<code> opens the invitation in Muro."
           }
         ]
       }

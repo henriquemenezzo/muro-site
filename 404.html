@@ -74,6 +74,7 @@
 
   [data-view]{display:none}
   html[data-show="reader"] [data-view="reader"],
+  html[data-show="group"] [data-view="group"],
   html[data-show="missing"] [data-view="missing"]{display:block}
   html[lang="pt-BR"] [lang="en"],html[lang="en"] [lang="pt-BR"]{display:none}
 </style>
@@ -101,6 +102,14 @@
       <p class="aside"><span lang="pt-BR">Já tem o Muro? Abra este link no iPhone e o perfil abre no app. Para Android, em breve.</span><span lang="en">Already have Muro? Open this link on your iPhone and the profile opens in the app. Android is coming soon.</span></p>
     </section>
 
+    <!-- A group's link (muroapp.com.br/g/<code>), opened without Muro. -->
+    <section data-view="group">
+      <h1><span lang="pt-BR">Você foi convidado para um grupo de leitura no Muro</span><span lang="en">You’re invited to a reading group on Muro</span></h1>
+      <p class="lede"><span lang="pt-BR">Baixe o Muro e toque no link de novo: o convite abre no app e você entra no grupo. Entrar é grátis.</span><span lang="en">Get Muro, then tap the link again: the invitation opens in the app and you join the group. Joining is free.</span></p>
+      <a class="store" data-store href="https://apps.apple.com/br/app/id6808436578"><span lang="pt-BR">Baixar na App Store</span><span lang="en">Download on the App Store</span></a>
+      <p class="aside"><span lang="pt-BR">Já tem o Muro? Abra este link no iPhone e o convite abre no app. Para Android, em breve.</span><span lang="en">Already have Muro? Open this link on your iPhone and the invitation opens in the app. Android is coming soon.</span></p>
+    </section>
+
     <!-- Any other address. -->
     <section data-view="missing">
       <h1><span lang="pt-BR">Página não encontrada</span><span lang="en">Page not found</span></h1>
@@ -121,12 +130,17 @@
   var m = location.pathname.match(/^\/@([a-z0-9._]{1,30})\/?$/i);
   var saved = null; try { saved = localStorage.getItem('muro.lang'); } catch (e) {}
   root.lang = saved || (/^pt/i.test(navigator.language || '') ? 'pt-BR' : 'en');
-  root.setAttribute('data-show', m ? 'reader' : 'missing');
+  var g = location.pathname.match(/^\/g\/[0-9a-f]{8,32}\/?$/i);
+  root.setAttribute('data-show', m ? 'reader' : g ? 'group' : 'missing');
+  if (g) {
+    document.title = root.lang === 'en' ? 'Group invitation · Muro' : 'Convite para um grupo · Muro';
+    if (root.lang === 'en') document.querySelector('[data-view="group"] [data-store]').href = 'https://apps.apple.com/us/app/id6808436578';
+  }
   if (m) {
     var handle = '@' + m[1].toLowerCase();
     document.querySelectorAll('[data-handle]').forEach(function (e) { e.textContent = handle; });
     document.title = handle + ' · Muro';
-    if (root.lang === 'en') document.querySelector('[data-store]').href = 'https://apps.apple.com/us/app/id6808436578';
+    if (root.lang === 'en') document.querySelector('[data-view="reader"] [data-store]').href = 'https://apps.apple.com/us/app/id6808436578';
   }
 </script>
 </body>
